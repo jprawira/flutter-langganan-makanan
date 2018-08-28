@@ -1,3 +1,3 @@
 # langganan_makanan
 
-Test Flutter.
+Test Flutter untuk desain halaman langganan makanan.
