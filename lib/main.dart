@@ -44,12 +44,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget orderCard() {
     return new Container(
-        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
         child: new Card(
           color: Colors.white,
           elevation: 2.0,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
+            padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
             child: orderCardElements(),
           ),
         ));
@@ -59,9 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          numberOfBox(),
+          numberOfBoxLabel(),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
             child: Row(children: <Widget>[
               Flexible(child: numberOfBoxField()),
               Padding(padding: EdgeInsets.symmetric(horizontal: 4.0)),
@@ -70,12 +70,13 @@ class _MyHomePageState extends State<MyHomePage> {
               numberOfBoxIncrementButton()
             ]),
           ),
-          subscribeLengthPicker(),
+          Divider(height: 8.0,color: Colors.transparent),
+          subscribeLengthPickerLabel(),
           proTips()
         ]);
   }
 
-  Widget numberOfBox() {
+  Widget numberOfBoxLabel() {
     return new Container(
         padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
         child: Column(
@@ -108,14 +109,14 @@ class _MyHomePageState extends State<MyHomePage> {
             )),
             Text('Box',
                 style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.bold, fontSize: 16.0)),
-            Padding(padding: EdgeInsets.only(right: 70.0))
+            Padding(padding: EdgeInsets.only(right: deviceSize.width/5.0))
           ],
         ));
   }
 
   Widget numberOfBoxDecrementButton() {
     return new Container(
-        constraints: BoxConstraints.expand(height: 48.0, width: 60.0),
+        constraints: BoxConstraints.expand(height: 46.0, width: 60.0),
         child: Material(
           elevation: 0.0,
           color: Colors.transparent,
@@ -141,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget numberOfBoxIncrementButton() {
     return new Container(
-        constraints: BoxConstraints.expand(height: 48.0, width: 60.0),
+        constraints: BoxConstraints.expand(height: 46.0, width: 60.0),
         child: Material(
           elevation: 0.0,
           color: Colors.transparent,
@@ -165,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
-  Widget subscribeLengthPicker() {
+  Widget subscribeLengthPickerLabel() {
     return new Container(
         padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
         child: Column(
@@ -210,7 +211,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget detailsCard() {
     return new Container(
-        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
         child: new Card(
           color: Colors.white,
           elevation: 2.0,
@@ -220,7 +221,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget detailsText() {
     return new Container(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(12.0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
           Widget>[
         Padding(
@@ -289,7 +290,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget nextButton() {
     return new Container(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(12.0),
         child: Container(
             constraints: BoxConstraints.expand(height: 54.0),
             child: Material(
