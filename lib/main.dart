@@ -35,9 +35,11 @@ class _MyHomePageState extends State<MyHomePage> {
   // TODO: ADD LOGIC FOR DATE PICKER
   void _decrementCounter() {
     setState(() {
-      _boxes--;
-      boxesCountController.text = _boxes.toString();
-      debugPrint(_boxes.toString());
+      if (_boxes > 1) {
+        _boxes--;
+        boxesCountController.text = _boxes.toString();
+        debugPrint(_boxes.toString());
+      }
     });
   }
 
