@@ -25,18 +25,27 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int _boxes = 1;
   int _days = 0;
   var deviceSize;
-  AnimationController controller;
-  Animation<double> animation;
+  var boxesCountController = new TextEditingController(text: '1');
 
   // TODO: ADD COUNTER FOR NUMBER OF BOXES/DAY
   // TODO: ADD COUNTER FOR NUMBER OF DAYS
   // TODO: ADD LOGIC FOR DATE PICKER
+  void _decrementCounter() {
+    setState(() {
+      _boxes--;
+      boxesCountController.text = _boxes.toString();
+      debugPrint(_boxes.toString());
+    });
+  }
+
   void _incrementCounter() {
     setState(() {
-      _counter++;
+      _boxes++;
+      boxesCountController.text = _boxes.toString();
+      debugPrint(_boxes.toString());
     });
   }
 
@@ -49,7 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
           color: Colors.white,
           elevation: 2.0,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
             child: orderCardElements(),
           ),
         ));
@@ -70,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
               numberOfBoxIncrementButton()
             ]),
           ),
-          Divider(height: 8.0,color: Colors.transparent),
+          Divider(height: 8.0, color: Colors.transparent),
           subscribeLengthPickerLabel(),
           proTips()
         ]);
@@ -97,8 +107,8 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Flexible(
-                child: TextFormField(
-              initialValue: '1',
+                child: TextField(
+              controller: boxesCountController,
               keyboardType: TextInputType.number,
               textAlign: TextAlign.right,
               style: TextStyle(
@@ -108,8 +118,11 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: InputDecoration(border: InputBorder.none),
             )),
             Text('Box',
-                style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.bold, fontSize: 16.0)),
-            Padding(padding: EdgeInsets.only(right: deviceSize.width/5.0))
+                style: TextStyle(
+                    color: Colors.grey[600],
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.0)),
+            Padding(padding: EdgeInsets.only(right: deviceSize.width / 6.0))
           ],
         ));
   }
@@ -124,8 +137,10 @@ class _MyHomePageState extends State<MyHomePage> {
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(8.0),
                   bottomLeft: Radius.circular(8.0))),
-          child: InkWell(
-            splashColor: UiData.mainOrange,
+          child: new InkWell(
+            // TODO: DO SOMETHING
+            onTap: _decrementCounter,
+            splashColor: Colors.redAccent,
             child: Ink(
               decoration: BoxDecoration(color: UiData.mainOrange),
               child: Center(
@@ -150,8 +165,10 @@ class _MyHomePageState extends State<MyHomePage> {
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(8.0),
                   bottomRight: Radius.circular(8.0))),
-          child: InkWell(
-            splashColor: UiData.mainOrange,
+          child: new InkWell(
+            // TODO: DO SOMETHING
+            onTap: _incrementCounter,
+            splashColor: Colors.redAccent,
             child: Ink(
               decoration: BoxDecoration(color: UiData.mainOrange),
               child: Center(
@@ -299,6 +316,8 @@ class _MyHomePageState extends State<MyHomePage> {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               child: InkWell(
+                // TODO: DO SOMETHING
+                onTap: () => debugPrint("HELLO SELANJUTNYA"),
                 splashColor: UiData.mainOrange,
                 child: Ink(
                   height: 50.0,
