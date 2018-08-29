@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'ui_data.dart';
 
 void main() => runApp(new MyApp());
@@ -25,30 +26,37 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _boxes = 1;
-  int _days = 0;
-  var deviceSize;
-  var boxesCountController = new TextEditingController(text: '1');
+  final rupiahFormat = new NumberFormat("###,###,###");
 
-  // TODO: ADD COUNTER FOR NUMBER OF BOXES/DAY
+  int _boxes = 1;
+  int _days = 2;
+  int _totalValue = 25000;
+  var _deviceSize;
+  var _boxesCountController = new TextEditingController(text: '1');
+
   // TODO: ADD COUNTER FOR NUMBER OF DAYS
   // TODO: ADD LOGIC FOR DATE PICKER
-  void _decrementCounter() {
+  // TODO: HANDLE WHEN USER INPUT NUMBER OF BOXES UNDER 1
+  void _decrementBoxCount() {
     setState(() {
       if (_boxes > 1) {
         _boxes--;
-        boxesCountController.text = _boxes.toString();
-        debugPrint(_boxes.toString());
+        _updateBoxCount();
       }
     });
   }
 
-  void _incrementCounter() {
+  void _incrementBoxCount() {
     setState(() {
       _boxes++;
-      boxesCountController.text = _boxes.toString();
-      debugPrint(_boxes.toString());
+      _updateBoxCount();
     });
+  }
+
+  void _updateBoxCount() {
+    _totalValue = _boxes * 25000;
+    _boxesCountController.text = _boxes.toString();
+    debugPrint(_boxes.toString());
   }
 
   // TODO: ADD WIDGET FOR NAVIGATION
@@ -110,7 +118,11 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Flexible(
                 child: TextField(
-              controller: boxesCountController,
+              controller: _boxesCountController,
+              onChanged: (text) {
+                _boxes = int.parse(text);
+                _updateBoxCount();
+              },
               keyboardType: TextInputType.number,
               textAlign: TextAlign.right,
               style: TextStyle(
@@ -124,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.grey[600],
                     fontWeight: FontWeight.bold,
                     fontSize: 16.0)),
-            Padding(padding: EdgeInsets.only(right: deviceSize.width / 6.0))
+            Padding(padding: EdgeInsets.only(right: _deviceSize.width / 6.0))
           ],
         ));
   }
@@ -140,8 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   topLeft: Radius.circular(8.0),
                   bottomLeft: Radius.circular(8.0))),
           child: new InkWell(
-            // TODO: DO SOMETHING
-            onTap: _decrementCounter,
+            onTap: _decrementBoxCount,
             splashColor: Colors.redAccent,
             child: Ink(
               decoration: BoxDecoration(color: UiData.mainOrange),
@@ -168,8 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   topRight: Radius.circular(8.0),
                   bottomRight: Radius.circular(8.0))),
           child: new InkWell(
-            // TODO: DO SOMETHING
-            onTap: _incrementCounter,
+            onTap: _incrementBoxCount,
             splashColor: Colors.redAccent,
             child: Ink(
               decoration: BoxDecoration(color: UiData.mainOrange),
@@ -256,7 +266,8 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(UiData.pricePerBoxLabel, style: TextStyle(fontSize: 16.0)),
-              new Text('Rp 25,000', style: TextStyle(fontSize: 16.0))
+              new Text('Rp ' + rupiahFormat.format(25000),
+                  style: TextStyle(fontSize: 16.0))
             ],
           ),
         ),
@@ -268,7 +279,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               Text(UiData.totalNumberOfBoxLabel,
                   style: TextStyle(fontSize: 16.0)),
-              new Text('1 Box', style: TextStyle(fontSize: 16.0))
+              new Text('$_boxes Box', style: TextStyle(fontSize: 16.0))
             ],
           ),
         ),
@@ -298,7 +309,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Text(UiData.totalAmount,
                   style:
                       TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
-              new Text('Rp 250,000',
+              new Text('Rp ' + rupiahFormat.format(_totalValue),
                   style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold))
             ],
           ),
@@ -319,7 +330,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               child: InkWell(
                 // TODO: DO SOMETHING
-                onTap: () => debugPrint("HELLO SELANJUTNYA"),
+                onTap: () => debugPrint('TOTAL: ' + _totalValue.toString()),
                 splashColor: UiData.mainOrange,
                 child: Ink(
                   height: 50.0,
@@ -342,7 +353,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    deviceSize = MediaQuery.of(context).size;
+    _deviceSize = MediaQuery.of(context).size;
     return new Scaffold(
         appBar: new AppBar(
           leading: new Icon(
