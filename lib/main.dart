@@ -9,9 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Mulai Langganan',
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: new ThemeData(primaryColor: Colors.white),
       home: new MyHomePage(title: 'Mulai Langganan'),
     );
   }
@@ -61,13 +59,23 @@ class _MyHomePageState extends State<MyHomePage> {
     return new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          numberOfBoxPicker(),
+          numberOfBox(),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
+            child: Row(children: <Widget>[
+              Flexible(child: numberOfBoxField()),
+              Padding(padding: EdgeInsets.symmetric(horizontal: 4.0)),
+              numberOfBoxDecrementButton(),
+              Padding(padding: EdgeInsets.symmetric(horizontal: 2.0)),
+              numberOfBoxIncrementButton()
+            ]),
+          ),
           subscribeLengthPicker(),
           proTips()
         ]);
   }
 
-  Widget numberOfBoxPicker() {
+  Widget numberOfBox() {
     return new Container(
         padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
         child: Column(
@@ -78,7 +86,84 @@ class _MyHomePageState extends State<MyHomePage> {
             ]));
   }
 
-  // TODO: MAKE WIDGET FOR BOX NUMBER PICKER
+  Widget numberOfBoxField() {
+    return new Container(
+        decoration: new BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(5.0),
+            border: new Border.all(color: UiData.mainOrange, width: 2.0)),
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Flexible(
+                child: TextFormField(
+              initialValue: '1',
+              keyboardType: TextInputType.number,
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                  color: Colors.grey[600],
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.0),
+              decoration: InputDecoration(border: InputBorder.none),
+            )),
+            Text('Box',
+                style: TextStyle(color: Colors.grey[600],fontWeight: FontWeight.bold, fontSize: 16.0)),
+            Padding(padding: EdgeInsets.only(right: 70.0))
+          ],
+        ));
+  }
+
+  Widget numberOfBoxDecrementButton() {
+    return new Container(
+        constraints: BoxConstraints.expand(height: 48.0, width: 60.0),
+        child: Material(
+          elevation: 0.0,
+          color: Colors.transparent,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8.0),
+                  bottomLeft: Radius.circular(8.0))),
+          child: InkWell(
+            splashColor: UiData.mainOrange,
+            child: Ink(
+              decoration: BoxDecoration(color: UiData.mainOrange),
+              child: Center(
+                child: Text(
+                  '-',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white, fontSize: 28.0),
+                ),
+              ),
+            ),
+          ),
+        ));
+  }
+
+  Widget numberOfBoxIncrementButton() {
+    return new Container(
+        constraints: BoxConstraints.expand(height: 48.0, width: 60.0),
+        child: Material(
+          elevation: 0.0,
+          color: Colors.transparent,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(8.0),
+                  bottomRight: Radius.circular(8.0))),
+          child: InkWell(
+            splashColor: UiData.mainOrange,
+            child: Ink(
+              decoration: BoxDecoration(color: UiData.mainOrange),
+              child: Center(
+                child: Text(
+                  '+',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white, fontSize: 28.0),
+                ),
+              ),
+            ),
+          ),
+        ));
+  }
 
   Widget subscribeLengthPicker() {
     return new Container(
@@ -96,34 +181,31 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget proTips() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
-      constraints: BoxConstraints.expand(height: 125.0),
       child: Material(
         color: UiData.proTipBackground,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5.0))),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    UiData.proTipsLabel,
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
-                  ),
-                  Divider(
-                    height: 4.0,
-                    color: Colors.transparent,
-                  ),
-                  Text(
-                    UiData.proTipsContent,
-                    style:
-                    TextStyle(fontSize: 14.0),
-                  )
-                ]),
-          ),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  UiData.proTipsLabel,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                ),
+                Divider(
+                  height: 4.0,
+                  color: Colors.transparent,
+                ),
+                Text(
+                  UiData.proTipsContent,
+                  style: TextStyle(fontSize: 14.0),
+                )
+              ]),
         ),
-      );
+      ),
+    );
   }
 
   Widget detailsCard() {
@@ -164,7 +246,8 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(UiData.totalNumberOfBoxLabel, style: TextStyle(fontSize: 16.0)),
+              Text(UiData.totalNumberOfBoxLabel,
+                  style: TextStyle(fontSize: 16.0)),
               new Text('1 Box', style: TextStyle(fontSize: 16.0))
             ],
           ),
@@ -175,7 +258,8 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(UiData.subscriptionLengthLabel, style: TextStyle(fontSize: 16.0)),
+              Text(UiData.subscriptionLengthLabel,
+                  style: TextStyle(fontSize: 16.0)),
               new Text('10 hari', style: TextStyle(fontSize: 16.0))
             ],
           ),
@@ -214,7 +298,7 @@ class _MyHomePageState extends State<MyHomePage> {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               child: InkWell(
-                splashColor: Colors.yellow,
+                splashColor: UiData.mainOrange,
                 child: Ink(
                   height: 50.0,
                   decoration: BoxDecoration(
@@ -239,6 +323,11 @@ class _MyHomePageState extends State<MyHomePage> {
     deviceSize = MediaQuery.of(context).size;
     return new Scaffold(
         appBar: new AppBar(
+          leading: new Icon(
+            Icons.arrow_back,
+            color: Colors.grey[600],
+          ),
+          elevation: 0.0,
           title: new Text(widget.title),
         ),
         body: new ListView(

@@ -13,7 +13,7 @@ class UiData {
   static const String totalAmount = 'Total';
 
   //colors
-  static Color datePickerOrange = new Color.fromRGBO(253, 151, 20, 1.0);
+  static Color mainOrange = new Color.fromRGBO(253, 151, 20, 1.0);
   static Color leftButtonGradient = new Color.fromRGBO(250, 78, 53, 1.0);
   static Color rightButtonGradient = new Color.fromRGBO(252, 132, 29, 1.0);
   static Color proTipBackground = new Color.fromRGBO(254, 244, 231, 1.0);
