@@ -28,11 +28,21 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final rupiahFormat = new NumberFormat("###,###,###");
 
-  int _boxes = 1;
-  int _days = 2;
-  int _totalValue = 25000;
+  int _boxes;
+  int _days;
+  int _totalValue;
+  int _boxPrice;
   var _deviceSize;
   var _boxesCountController = new TextEditingController(text: '1');
+
+  @override
+  void initState() {
+    super.initState();
+    _boxes = 1;
+    _days = 2;
+    _totalValue = 25000;
+    _boxPrice = 25000;
+  }
 
   // TODO: ADD COUNTER FOR NUMBER OF DAYS
   // TODO: ADD LOGIC FOR DATE PICKER
