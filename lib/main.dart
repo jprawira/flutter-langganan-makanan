@@ -129,14 +129,14 @@ class _MyHomePageState extends State<MyHomePage> {
               keyboardType: TextInputType.number,
               textAlign: TextAlign.right,
               style: TextStyle(
-                  color: Colors.grey[600],
+                  color: Colors.grey[700],
                   fontWeight: FontWeight.bold,
                   fontSize: 16.0),
               decoration: InputDecoration(border: InputBorder.none),
             )),
             Text('Box',
                 style: TextStyle(
-                    color: Colors.grey[600],
+                    color: Colors.grey[700],
                     fontWeight: FontWeight.bold,
                     fontSize: 16.0)),
             Padding(padding: EdgeInsets.only(right: _deviceSize.width / 6.0))
@@ -241,7 +241,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget orderCard() {
     return new Container(
-        padding: const EdgeInsets.fromLTRB(8.0, 20.0, 8.0, 12.0),
+        padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 8.0),
         child: new Container(
             decoration: new BoxDecoration(boxShadow: [
               new BoxShadow(color: Colors.grey[400], blurRadius: 20.0)
@@ -302,7 +302,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget detailsCard() {
     return new Container(
-        padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 12.0),
+        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
         child: new Container(
             decoration: new BoxDecoration(boxShadow: [
               new BoxShadow(color: Colors.grey[400], blurRadius: 20.0)
@@ -428,7 +428,7 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Colors.white,
           leading: new Icon(
             Icons.arrow_back,
-            color: Colors.grey[600],
+            color: Colors.grey[700],
           ),
           elevation: 0.0,
           title: new Text(widget.title),

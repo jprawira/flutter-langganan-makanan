@@ -88,7 +88,7 @@ class LengthPickerItem extends StatelessWidget {
               new Text(
                 _item.text,
                 style: TextStyle(
-                    color: _item.isSelected ? Colors.white : Colors.grey[600],
+                    color: _item.isSelected ? Colors.white : Colors.grey[700],
                     fontWeight: FontWeight.bold,
                     fontSize: 16.0),
               ),

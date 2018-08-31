@@ -79,11 +79,11 @@ class _CalendarState extends State<Calendar> {
     if (widget.showChevronsToChangeRange) {
       leftOuterIcon = new IconButton(
         onPressed: isExpanded ? previousMonth : previousWeek,
-        icon: new Icon(Icons.chevron_left),
+        icon: new Icon(Icons.chevron_left, color: Colors.grey[700]),
       );
       rightOuterIcon = new IconButton(
         onPressed: isExpanded ? nextMonth : nextWeek,
-        icon: new Icon(Icons.chevron_right),
+        icon: new Icon(Icons.chevron_right, color: Colors.grey[700]),
       );
     } else {
       leftOuterIcon = new Container();
@@ -92,7 +92,7 @@ class _CalendarState extends State<Calendar> {
 
     if (widget.showTodayAction) {
       leftInnerIcon = new InkWell(
-        child: new Text('Today'),
+        child: new Text('Today', style: new TextStyle(color: Colors.grey[700])),
         onTap: resetToToday,
       );
     } else {
@@ -109,6 +109,8 @@ class _CalendarState extends State<Calendar> {
             new Text(
               displayMonth,
               style: new TextStyle(
+                color: Colors.grey[700],
+                fontWeight: FontWeight.bold,
                 fontSize: 20.0,
               ),
             ),
@@ -128,7 +130,7 @@ class _CalendarState extends State<Calendar> {
         child: new GridView.count(
           shrinkWrap: true,
           crossAxisCount: 7,
-          childAspectRatio: 1.5,
+          childAspectRatio: 1.0,
           mainAxisSpacing: 0.0,
           padding: new EdgeInsets.only(bottom: 0.0),
           children: calendarBuilder(),
@@ -191,8 +193,8 @@ class _CalendarState extends State<Calendar> {
     TextStyle dateStyles;
     if (isExpanded) {
       dateStyles = monthStarted && !monthEnded
-          ? new TextStyle(color: Colors.black)
-          : new TextStyle(color: Colors.black38);
+          ? new TextStyle(color: Colors.grey[700])
+          : new TextStyle(color: Colors.grey[400]);
     } else {
       dateStyles = new TextStyle(color: Colors.black);
     }
@@ -315,6 +317,7 @@ class _CalendarState extends State<Calendar> {
     DateTime selected = await showDatePicker(
       context: context,
       initialDate: _selectedDate ?? new DateTime.now(),
+      // TODO: CHANGE THE LIMIT FOR PICKER
       firstDate: new DateTime(1960),
       lastDate: new DateTime(2050),
     );
