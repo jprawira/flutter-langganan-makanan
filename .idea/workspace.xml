@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1a5c0333-dc01-4943-abac-0367c5ac4b7a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
       <change beforePath="$PROJECT_DIR$/lib/widgets/calendar.dart" afterPath="$PROJECT_DIR$/lib/widgets/calendar.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -24,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="459" column="34" lean-forward="false" selection-start-line="459" selection-start-column="34" selection-end-line="459" selection-end-column="34" />
+            <state relative-caret-position="1202">
+              <caret line="457" column="12" lean-forward="true" selection-start-line="457" selection-start-column="12" selection-end-line="457" selection-end-column="12" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -36,8 +35,8 @@
       <file leaf-file-name="calendar.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/widgets/calendar.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="324" column="72" lean-forward="false" selection-start-line="324" selection-start-column="72" selection-end-line="324" selection-end-column="72" />
+            <state relative-caret-position="377">
+              <caret line="134" column="23" lean-forward="false" selection-start-line="134" selection-start-column="23" selection-end-line="134" selection-end-column="23" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -56,9 +55,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>_deviceSize</find>
-      <find>flutter_cal</find>
-      <find>today</find>
       <find>today = U</find>
       <find>isExpanded</find>
       <find>date_utils</find>
@@ -86,6 +82,9 @@
       <find>12</find>
       <find>limit</find>
       <find>pick</find>
+      <find>builder</find>
+      <find>Grid</find>
+      <find>physics</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -698,14 +697,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/widgets/subscribe_length_picker.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="12" column="2" lean-forward="false" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/widgets/calendar_tile.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -716,10 +707,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/widgets/subscribe_length_picker.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="50" column="15" lean-forward="false" selection-start-line="50" selection-start-column="8" selection-end-line="50" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/widgets/calendar.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="324" column="72" lean-forward="false" selection-start-line="324" selection-start-column="72" selection-end-line="324" selection-end-column="72" />
+        <state relative-caret-position="377">
+          <caret line="134" column="23" lean-forward="false" selection-start-line="134" selection-start-column="23" selection-end-line="134" selection-end-column="23" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>
@@ -728,8 +727,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="459" column="34" lean-forward="false" selection-start-line="459" selection-start-column="34" selection-end-line="459" selection-end-column="34" />
+        <state relative-caret-position="1202">
+          <caret line="457" column="12" lean-forward="true" selection-start-line="457" selection-start-column="12" selection-end-line="457" selection-end-column="12" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
