@@ -254,7 +254,7 @@ class _CalendarState extends State<Calendar> {
 
   void nextMonth() {
     setState(() {
-      today = Utils.nextMonth(today);
+      today = new DateTime(today.year, today.month + 1);
       var firstDateOfNewMonth = Utils.firstDayOfMonth(today);
       var lastDateOfNewMonth = Utils.lastDayOfMonth(today);
       updateSelectedRange(firstDateOfNewMonth, lastDateOfNewMonth);
@@ -265,12 +265,12 @@ class _CalendarState extends State<Calendar> {
 
   void previousMonth() {
     setState(() {
-      today = Utils.previousMonth(today);
+      today = new DateTime(today.year, today.month - 1);
       var firstDateOfNewMonth = Utils.firstDayOfMonth(today);
       var lastDateOfNewMonth = Utils.lastDayOfMonth(today);
       updateSelectedRange(firstDateOfNewMonth, lastDateOfNewMonth);
       selectedMonthsDays = Utils.daysInMonth(today);
-      displayMonth = Utils.formatMonth(Utils.firstDayOfWeek(today));
+      displayMonth = Utils.formatMonth(today);
     });
   }
 
