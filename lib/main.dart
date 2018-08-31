@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_calendar/flutter_calendar.dart';
+import 'widgets/calendar.dart';
 import 'widgets/subscribe_length_picker.dart';
 import 'ui_data.dart';
 

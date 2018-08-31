@@ -72,7 +72,7 @@ packages:
     source: hosted
     version: "0.1.2"
   date_utils:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: date_utils
       url: "https://pub.dartlang.org"
@@ -83,15 +83,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_calendar:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: ffe1dbab87de453448d1224d8e7858b4afc98522
-      url: "https://github.com/jprawira/flutter_calendar.git"
-    source: git
-    version: "0.0.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter
