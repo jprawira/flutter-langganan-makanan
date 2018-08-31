@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_calendar/flutter_calendar.dart';
 import 'widgets/subscribe_length_picker.dart';
 import 'ui_data.dart';
 
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Mulai Langganan',
-      theme: new ThemeData(primaryColor: Colors.white),
+      theme: new ThemeData(primaryColor: UiData.mainOrange),
       home: new MyHomePage(title: 'Mulai Langganan'),
     );
   }
@@ -280,7 +281,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // TODO: LINK SubscribeLengthPicker TO UPDATE _daysCount_
             child: new SubscribeLengthPicker(onChanged: _updateBoxPrice),
           ),
-          //new SubscribeLengthPicker(),
+          new Calendar(isExpandable: true),
           proTips()
         ]);
   }
@@ -403,6 +404,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _deviceSize = MediaQuery.of(context).size;
     return new Scaffold(
         appBar: new AppBar(
+          backgroundColor: Colors.white,
           leading: new Icon(
             Icons.arrow_back,
             color: Colors.grey[600],
