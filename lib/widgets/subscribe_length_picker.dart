@@ -10,7 +10,9 @@ class LengthPickerModel {
 }
 
 class SubscribeLengthPicker extends StatefulWidget {
-  SubscribeLengthPicker({Key key, this.pickerValue: 2, @required this.onChanged}) : super(key: key);
+  SubscribeLengthPicker(
+      {Key key, this.pickerValue: 2, @required this.onChanged})
+      : super(key: key);
 
   final int pickerValue;
   final ValueChanged<int> onChanged;
@@ -35,10 +37,11 @@ class SubscribeLengthPickerState extends State<SubscribeLengthPicker> {
   @override
   void initState() {
     super.initState();
-    data.add(new LengthPickerModel(false, '20 Hari', 'Rp 22,500/hari'));
-    data.add(new LengthPickerModel(false, '10 Hari', 'Rp 24,250/hari'));
-    data.add(new LengthPickerModel(true, '5 Hari', 'Rp 25,000/hari'));
-    data.add(new LengthPickerModel(false, 'Pilih Sendiri', 'Min. 2 hari'));
+    data
+      ..add(new LengthPickerModel(false, '20 Hari', 'Rp 22,500/hari'))
+      ..add(new LengthPickerModel(false, '10 Hari', 'Rp 24,250/hari'))
+      ..add(new LengthPickerModel(true, '5 Hari', 'Rp 25,000/hari'))
+      ..add(new LengthPickerModel(false, 'Pilih Sendiri', 'Min. 2 hari'));
   }
 
   @override
