@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'widgets/subscribe_length_picker.dart';
 import 'ui_data.dart';
 
 void main() => runApp(new MyApp());
@@ -29,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final rupiahFormat = new NumberFormat("###,###,###");
 
   int _boxes;
-  int _days;
+  int _daysCount;
   int _totalValue;
   int _boxPrice;
   var _deviceSize;
@@ -39,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     _boxes = 1;
-    _days = 2;
+    _daysCount = 2;
     _totalValue = 25000;
     _boxPrice = 25000;
   }
@@ -70,41 +71,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   // TODO: ADD WIDGET FOR NAVIGATION
-
-  Widget orderCard() {
-    return new Container(
-        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
-        child: new Card(
-          color: Colors.white,
-          elevation: 2.0,
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
-            child: orderCardElements(),
-          ),
-        ));
-  }
-
-  Widget orderCardElements() {
-    return new Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          numberOfBoxLabel(),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
-            child: Row(children: <Widget>[
-              Flexible(child: numberOfBoxField()),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 4.0)),
-              numberOfBoxDecrementButton(),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 2.0)),
-              numberOfBoxIncrementButton()
-            ]),
-          ),
-          Divider(height: 8.0, color: Colors.transparent),
-          subscribeLengthPickerLabel(),
-          proTips()
-        ]);
-  }
 
   Widget numberOfBoxLabel() {
     return new Container(
@@ -159,8 +125,8 @@ class _MyHomePageState extends State<MyHomePage> {
           color: Colors.transparent,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8.0),
-                  bottomLeft: Radius.circular(8.0))),
+                  topLeft: Radius.circular(5.0),
+                  bottomLeft: Radius.circular(5.0))),
           child: new InkWell(
             onTap: _decrementBoxCount,
             splashColor: Colors.redAccent,
@@ -186,8 +152,8 @@ class _MyHomePageState extends State<MyHomePage> {
           color: Colors.transparent,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(8.0),
-                  bottomRight: Radius.circular(8.0))),
+                  topRight: Radius.circular(5.0),
+                  bottomRight: Radius.circular(5.0))),
           child: new InkWell(
             onTap: _incrementBoxCount,
             splashColor: Colors.redAccent,
@@ -248,6 +214,47 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Widget orderCard() {
+    return new Container(
+        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
+        child: new Card(
+          color: Colors.white,
+          elevation: 2.0,
+          child: Padding(
+            padding:
+            const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
+            child: orderCardElements(),
+          ),
+        ));
+  }
+
+  Widget orderCardElements() {
+    return new Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          numberOfBoxLabel(),
+          Container(
+            padding: const EdgeInsets.all(4.0),
+            child: Row(children: <Widget>[
+              Flexible(child: numberOfBoxField()),
+              Padding(padding: EdgeInsets.symmetric(horizontal: 4.0)),
+              numberOfBoxDecrementButton(),
+              Padding(padding: EdgeInsets.symmetric(horizontal: 2.0)),
+              numberOfBoxIncrementButton()
+            ]),
+          ),
+          Divider(height: 8.0, color: Colors.transparent),
+          subscribeLengthPickerLabel(),
+          Container(
+            constraints: BoxConstraints.expand(height: 130.0),
+            // TODO: LINK SubscribeLengthPicker TO CHANGE _boxPrice and _daysCount_
+            child: new SubscribeLengthPicker(),
+          ),
+          //new SubscribeLengthPicker(),
+          proTips()
+        ]);
+  }
+
   Widget detailsCard() {
     return new Container(
         padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
@@ -276,7 +283,7 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(UiData.pricePerBoxLabel, style: TextStyle(fontSize: 16.0)),
-              new Text('Rp ' + rupiahFormat.format(25000),
+              new Text('Rp ' + rupiahFormat.format(_boxPrice),
                   style: TextStyle(fontSize: 16.0))
             ],
           ),
@@ -337,7 +344,7 @@ class _MyHomePageState extends State<MyHomePage> {
               elevation: 10.0,
               color: Colors.transparent,
               shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                  borderRadius: BorderRadius.all(Radius.circular(5.0))),
               child: InkWell(
                 // TODO: DO SOMETHING
                 onTap: () => debugPrint('TOTAL: ' + _totalValue.toString()),
