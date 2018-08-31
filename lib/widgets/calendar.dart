@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import 'calendar_tile.dart';
-import 'package:date_utils/date_utils.dart';
+import 'package:langganan_makanan/utils/date_utils.dart';
 
 typedef DayBuilder(BuildContext context, DateTime day);
 
@@ -259,7 +259,7 @@ class _CalendarState extends State<Calendar> {
       var lastDateOfNewMonth = Utils.lastDayOfMonth(today);
       updateSelectedRange(firstDateOfNewMonth, lastDateOfNewMonth);
       selectedMonthsDays = Utils.daysInMonth(today);
-      displayMonth = Utils.formatMonth(Utils.firstDayOfWeek(today));
+      displayMonth = Utils.formatMonth(today);
     });
   }
 

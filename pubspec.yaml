@@ -10,7 +10,6 @@ dependencies:
   cupertino_icons: ^0.1.2
   intl: ^0.15.7
   tuple: ^1.0.1
-  date_utils: ^0.1.0
 
 dev_dependencies:
   flutter_test:
