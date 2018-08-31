@@ -34,6 +34,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int _daysCount = 2;
   int _totalValue = 25000;
   int _boxPrice = 25000;
+  DateTime startDate;
+  DateTime endDate;
   var _deviceSize;
   var _boxesCountController = new TextEditingController(text: '1');
 
@@ -42,9 +44,6 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
-  // TODO: ADD COUNTER FOR NUMBER OF DAYS
-  // TODO: ADD LOGIC FOR DATE PICKER
-  // TODO: HANDLE WHEN USER INPUT NUMBER OF BOXES UNDER 1
   void _decrementBoxCount() {
     setState(() {
       if (_boxes > 1) {
@@ -204,6 +203,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ]));
   }
 
+  // TODO: HANDLE WHEN USER INPUT NUMBER OF BOXES UNDER 1
   Widget numberOfBoxField() {
     return new Container(
         decoration: new BoxDecoration(
@@ -375,6 +375,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         ? _deviceSize.height / 5
                         : _deviceSize.width / 2.5),
             // TODO: LINK SubscribeLengthPicker TO UPDATE _daysCount
+            // TODO: ADD DIALOG FOR "Pilih Sendiri"
+            // TODO: ADD LOGIC FOR PICKING DATE
             child: new SubscribeLengthPicker(onChanged: _updateBoxPrice),
           ),
           Divider(height: 12.0, color: Colors.transparent),
@@ -455,6 +457,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
+        // TODO: CHANGE TEXT USING startDate ACCORDINGLY
         Padding(
           padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 4.0),
           child: new Text('Mulai Selasa, 28 Agustus 2018',

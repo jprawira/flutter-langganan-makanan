@@ -33,8 +33,6 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
-  // TODO: DISABLE DATE PICKING FOR PREVIOUS DAYS, HOLIDAYS, AND WEEKEND
-
   final calendarUtils = new Utils();
   final DateTime now = new DateTime.now();
   DateTime today = new DateTime.now();
@@ -324,6 +322,7 @@ class _CalendarState extends State<Calendar> {
     }
   }
 
+  // TODO: DISABLE DATE PICKING FOR PREVIOUS DAYS, HOLIDAYS, AND WEEKEND
   Future<Null> selectDateFromPicker() async {
     DateTime selected = await showDatePicker(
       context: context,
