@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'calendar_tile.dart';
 import 'package:langganan_makanan/utils/date_utils.dart';
 
@@ -22,7 +23,7 @@ class Calendar extends StatefulWidget {
     this.onSelectedRangeChange,
     this.isExpandable: false,
     this.dayBuilder,
-    this.showTodayAction: true,
+    this.showTodayAction: false,
     this.showChevronsToChangeRange: true,
     this.showCalendarPickerIcon: false,
     this.initialCalendarDateOverride
@@ -48,6 +49,7 @@ class _CalendarState extends State<Calendar> {
 
   void initState() {
     super.initState();
+    initializeDateFormatting('id', null);
     if(widget.initialCalendarDateOverride != null) today = widget.initialCalendarDateOverride;
     selectedMonthsDays = Utils.daysInMonth(today);
     var firstDayOfCurrentWeek = Utils.firstDayOfWeek(today);
@@ -229,8 +231,7 @@ class _CalendarState extends State<Calendar> {
             collapsed: calendarGridView,
             expanded: calendarGridView,
             isExpanded: isExpanded,
-          ),
-          expansionButtonRow
+          )
         ],
       ),
     );
