@@ -33,7 +33,10 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
+  // TODO: DISABLE DATE PICKING FOR PREVIOUS DAYS, HOLIDAYS, AND WEEKEND
+
   final calendarUtils = new Utils();
+  final DateTime now = new DateTime.now();
   DateTime today = new DateTime.now();
   List<DateTime> selectedMonthsDays;
   Iterable<DateTime> selectedWeeksDays;
@@ -58,7 +61,7 @@ class _CalendarState extends State<Calendar> {
             .toList()
             .sublist(0, 7);
     _selectedDate = today;
-    displayMonth = Utils.formatMonth(Utils.firstDayOfWeek(today));
+    displayMonth = Utils.formatMonth(Utils.firstDayOfMonth(today));
   }
 
   Widget get nameAndIconRow {
@@ -122,6 +125,8 @@ class _CalendarState extends State<Calendar> {
 
   Widget get calendarGridView {
     return new Container(
+      decoration: new BoxDecoration(
+          border: new Border.all(color: Colors.white, width: 1.5)),
       child: new GestureDetector(
         onHorizontalDragStart: (gestureDetails) => beginSwipe(gestureDetails),
         onHorizontalDragUpdate: (gestureDetails) =>
@@ -258,23 +263,29 @@ class _CalendarState extends State<Calendar> {
 
   void nextMonth() {
     setState(() {
-      today = new DateTime(today.year, today.month + 1);
-      var firstDateOfNewMonth = Utils.firstDayOfMonth(today);
-      var lastDateOfNewMonth = Utils.lastDayOfMonth(today);
-      updateSelectedRange(firstDateOfNewMonth, lastDateOfNewMonth);
-      selectedMonthsDays = Utils.daysInMonth(today);
-      displayMonth = Utils.formatMonth(today);
+      // Limit the picker only to next month from now.
+      if (today.month - now.month % 12 < 1) {
+        today = new DateTime(today.year, today.month + 1);
+        var firstDateOfNewMonth = Utils.firstDayOfMonth(today);
+        var lastDateOfNewMonth = Utils.lastDayOfMonth(today);
+        updateSelectedRange(firstDateOfNewMonth, lastDateOfNewMonth);
+        selectedMonthsDays = Utils.daysInMonth(today);
+        displayMonth = Utils.formatMonth(today);
+      }
     });
   }
 
   void previousMonth() {
     setState(() {
-      today = new DateTime(today.year, today.month - 1);
-      var firstDateOfNewMonth = Utils.firstDayOfMonth(today);
-      var lastDateOfNewMonth = Utils.lastDayOfMonth(today);
-      updateSelectedRange(firstDateOfNewMonth, lastDateOfNewMonth);
-      selectedMonthsDays = Utils.daysInMonth(today);
-      displayMonth = Utils.formatMonth(today);
+      // Limit the picker only to previous month from now.
+      if (now.month - today.month % 12 < 1) {
+        today = new DateTime(today.year, today.month - 1);
+        var firstDateOfNewMonth = Utils.firstDayOfMonth(today);
+        var lastDateOfNewMonth = Utils.lastDayOfMonth(today);
+        updateSelectedRange(firstDateOfNewMonth, lastDateOfNewMonth);
+        selectedMonthsDays = Utils.daysInMonth(today);
+        displayMonth = Utils.formatMonth(today);
+      }
     });
   }
 
@@ -317,7 +328,6 @@ class _CalendarState extends State<Calendar> {
     DateTime selected = await showDatePicker(
       context: context,
       initialDate: _selectedDate ?? new DateTime.now(),
-      // TODO: CHANGE THE LIMIT FOR PICKER
       firstDate: new DateTime(1960),
       lastDate: new DateTime(2050),
     );

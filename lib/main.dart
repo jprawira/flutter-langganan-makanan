@@ -97,7 +97,101 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  // TODO: ADD WIDGET FOR NAVIGATION
+  // TODO: ADD LINES BETWEEN STEPS
+  Widget stepsDisplay() {
+    return new PreferredSize(
+      preferredSize: const Size.fromHeight(48.0),
+      child: Container(
+          height: 48.0,
+          alignment: Alignment.center,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Text(
+                    'Mulai',
+                    style: TextStyle(color: UiData.mainOrange, fontSize: 12.0),
+                  ),
+                  Container(
+                      padding: EdgeInsets.only(bottom: 10.0),
+                      child: PhysicalModel(
+                        shape: BoxShape.circle,
+                        borderRadius: new BorderRadius.circular(20.0),
+                        color: Colors.transparent,
+                        child: new Container(
+                          width: 15.0,
+                          height: 15.0,
+                          decoration: new BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: new Border.all(
+                              width: 3.0,
+                              color: UiData.mainOrange,
+                            ),
+                          ),
+                        ),
+                      ))
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Text(
+                    'Pengiriman',
+                    style: TextStyle(color: Colors.grey[400], fontSize: 12.0),
+                  ),
+                  Container(
+                      padding: EdgeInsets.only(bottom: 10.0),
+                      child: PhysicalModel(
+                        shape: BoxShape.circle,
+                        borderRadius: new BorderRadius.circular(20.0),
+                        color: Colors.transparent,
+                        child: new Container(
+                          width: 15.0,
+                          height: 15.0,
+                          decoration: new BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: new Border.all(
+                              width: 3.0,
+                              color: Colors.grey[400],
+                            ),
+                          ),
+                        ),
+                      ))
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Text(
+                    'Pembayaran',
+                    style: TextStyle(color: Colors.grey[400], fontSize: 12.0),
+                  ),
+                  Container(
+                      padding: EdgeInsets.only(bottom: 10.0),
+                      child: PhysicalModel(
+                        shape: BoxShape.circle,
+                        borderRadius: new BorderRadius.circular(20.0),
+                        color: Colors.transparent,
+                        child: new Container(
+                          width: 15.0,
+                          height: 15.0,
+                          decoration: new BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: new Border.all(
+                              width: 3.0,
+                              color: Colors.grey[400],
+                            ),
+                          ),
+                        ),
+                      ))
+                ],
+              )
+            ],
+          )),
+    );
+  }
 
   Widget numberOfBoxLabel() {
     return new Container(
@@ -426,6 +520,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return new Scaffold(
         appBar: new AppBar(
           backgroundColor: Colors.white,
+          bottom: stepsDisplay(),
           leading: new Icon(
             Icons.arrow_back,
             color: Colors.grey[700],

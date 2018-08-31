@@ -55,16 +55,16 @@ class Utils {
     /// Weekday is on a 1-7 scale Monday - Sunday,
     /// This Calendar works from Monday - Sunday
     var decreaseNum = day.weekday;
-    return day.subtract(new Duration(days: 7 - decreaseNum));
+    return day.subtract(new Duration(days: decreaseNum));
   }
 
   static DateTime lastDayOfWeek(DateTime day) {
     /// Handle Daylight Savings by setting hour to 12:00 Noon
     /// rather than the default of Midnight
-    day = new DateTime.utc(day.year, day.month, day.day, 12);
+    day = new DateTime.utc(day.year, day.month, day.day, 0);
 
     /// Weekday is on a 1-7 scale Monday - Sunday,
-    /// This Calendar's Week starts on Sunday
+    /// This Calendar's Week starts on Monday
     var increaseNum = day.weekday;
     return day.add(new Duration(days: increaseNum));
   }
