@@ -28,8 +28,8 @@ class SubscribeLengthPickerState extends State<SubscribeLengthPicker> {
     setState(() {
       data.forEach((element) => element.isSelected = false);
       data[index].isSelected = true;
-      widget.onChanged(index);
     });
+    widget.onChanged(index);
   }
 
   @override

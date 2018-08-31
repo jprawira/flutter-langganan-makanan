@@ -39,7 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-
   }
 
   // TODO: ADD COUNTER FOR NUMBER OF DAYS
@@ -66,30 +65,30 @@ class _MyHomePageState extends State<MyHomePage> {
   void _updateBoxCount() {
     _totalValue = _boxes * 25000;
     _boxesCountController.text = _boxes.toString();
-    debugPrint(_boxes.toString());
+    debugPrint('BOXES: ' + _boxes.toString());
   }
 
   void _updateTotalValue(int price, int boxes, int days) {
-    _totalValue = price*boxes*days;
+    _totalValue = price * boxes * days;
   }
 
-  void _changeBoxPrice(int pickerValue) {
+  void _updateBoxPrice(int pickerValue) {
     setState(() {
       switch (pickerValue) {
         case 0:
           _boxPrice = 22500;
           _updateTotalValue(_boxPrice, _boxes, _daysCount);
-          debugPrint('PER DAY: '+22500.toString());
+          debugPrint('PER DAY: ' + 22500.toString());
           break;
         case 1:
           _boxPrice = 24250;
           _updateTotalValue(_boxPrice, _boxes, _daysCount);
-          debugPrint('PER DAY: '+24250.toString());
+          debugPrint('PER DAY: ' + 24250.toString());
           break;
         case 2:
           _boxPrice = 25000;
           _updateTotalValue(_boxPrice, _boxes, _daysCount);
-          debugPrint('PER DAY: '+25000.toString());
+          debugPrint('PER DAY: ' + 25000.toString());
           break;
         case 3:
           break;
@@ -273,9 +272,13 @@ class _MyHomePageState extends State<MyHomePage> {
           Divider(height: 8.0, color: Colors.transparent),
           subscribeLengthPickerLabel(),
           Container(
-            constraints: BoxConstraints.expand(height: 130.0),
-            // TODO: LINK SubscribeLengthPicker TO CHANGE _daysCount_
-            child: new SubscribeLengthPicker(onChanged: _changeBoxPrice),
+            constraints: BoxConstraints.expand(
+                height:
+                    MediaQuery.of(context).orientation == Orientation.portrait
+                        ? _deviceSize.height / 5
+                        : _deviceSize.width / 2.5),
+            // TODO: LINK SubscribeLengthPicker TO UPDATE _daysCount_
+            child: new SubscribeLengthPicker(onChanged: _updateBoxPrice),
           ),
           //new SubscribeLengthPicker(),
           proTips()
