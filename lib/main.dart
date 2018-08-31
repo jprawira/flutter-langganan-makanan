@@ -209,8 +209,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ]));
   }
 
-  // TODO: MAKE WIDGET FOR DATE PICKER
-
   Widget proTips() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
@@ -243,16 +241,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget orderCard() {
     return new Container(
-        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
-        child: new Card(
-          color: Colors.white,
-          elevation: 2.0,
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
-            child: orderCardElements(),
-          ),
-        ));
+        padding: const EdgeInsets.fromLTRB(8.0, 20.0, 8.0, 12.0),
+        child: new Container(
+            decoration: new BoxDecoration(boxShadow: [
+              new BoxShadow(color: Colors.grey[400], blurRadius: 20.0)
+            ]),
+            child: new Card(
+              color: Colors.white,
+              elevation: 0.0,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
+                child: orderCardElements(),
+              ),
+            )));
   }
 
   Widget orderCardElements() {
@@ -278,22 +280,38 @@ class _MyHomePageState extends State<MyHomePage> {
                     MediaQuery.of(context).orientation == Orientation.portrait
                         ? _deviceSize.height / 5
                         : _deviceSize.width / 2.5),
-            // TODO: LINK SubscribeLengthPicker TO UPDATE _daysCount_
+            // TODO: LINK SubscribeLengthPicker TO UPDATE _daysCount
             child: new SubscribeLengthPicker(onChanged: _updateBoxPrice),
           ),
-          new Calendar(isExpandable: true),
+          Divider(height: 12.0, color: Colors.transparent),
+          new Container(
+              decoration: new BoxDecoration(boxShadow: [
+                new BoxShadow(color: Colors.grey, blurRadius: 6.0)
+              ]),
+              child: Material(
+                  elevation: 0.0,
+                  color: Colors.transparent,
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                  // TODO: MAKE CALENDAR ABLE TO PICK DAYS AND UPDATE _daysCount
+                  child: new Calendar())),
+          Divider(height: 12.0, color: Colors.transparent),
           proTips()
         ]);
   }
 
   Widget detailsCard() {
     return new Container(
-        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
-        child: new Card(
-          color: Colors.white,
-          elevation: 2.0,
-          child: detailsText(),
-        ));
+        padding: const EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 12.0),
+        child: new Container(
+            decoration: new BoxDecoration(boxShadow: [
+              new BoxShadow(color: Colors.grey[400], blurRadius: 20.0)
+            ]),
+            child: new Card(
+              color: Colors.white,
+              elevation: 0.0,
+              child: detailsText(),
+            )));
   }
 
   Widget detailsText() {
@@ -371,8 +389,11 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: const EdgeInsets.all(12.0),
         child: Container(
             constraints: BoxConstraints.expand(height: 54.0),
+            decoration: new BoxDecoration(boxShadow: [
+              new BoxShadow(color: Colors.red[300], blurRadius: 20.0)
+            ]),
             child: Material(
-              elevation: 10.0,
+              elevation: 0.0,
               color: Colors.transparent,
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(5.0))),

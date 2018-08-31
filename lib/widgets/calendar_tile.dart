@@ -39,9 +39,9 @@ class CalendarTile extends StatelessWidget {
         child: new Container(
           decoration: isSelected
               ? new BoxDecoration(
-            shape: BoxShape.rectangle,
-            color: Theme.of(context).primaryColor,
-          )
+                  shape: BoxShape.rectangle,
+                  color: Theme.of(context).primaryColor,
+                )
               : new BoxDecoration(),
           alignment: Alignment.center,
           child: new Text(
