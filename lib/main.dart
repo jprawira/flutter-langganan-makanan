@@ -29,20 +29,17 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final rupiahFormat = new NumberFormat("###,###,###");
 
-  int _boxes;
-  int _daysCount;
-  int _totalValue;
-  int _boxPrice;
+  int _boxes = 1;
+  int _daysCount = 2;
+  int _totalValue = 25000;
+  int _boxPrice = 25000;
   var _deviceSize;
   var _boxesCountController = new TextEditingController(text: '1');
 
   @override
   void initState() {
     super.initState();
-    _boxes = 1;
-    _daysCount = 2;
-    _totalValue = 25000;
-    _boxPrice = 25000;
+
   }
 
   // TODO: ADD COUNTER FOR NUMBER OF DAYS
@@ -53,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if (_boxes > 1) {
         _boxes--;
         _updateBoxCount();
+        _updateTotalValue(_boxPrice, _boxes, _daysCount);
       }
     });
   }
@@ -61,6 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _boxes++;
       _updateBoxCount();
+      _updateTotalValue(_boxPrice, _boxes, _daysCount);
     });
   }
 
@@ -68,6 +67,34 @@ class _MyHomePageState extends State<MyHomePage> {
     _totalValue = _boxes * 25000;
     _boxesCountController.text = _boxes.toString();
     debugPrint(_boxes.toString());
+  }
+
+  void _updateTotalValue(int price, int boxes, int days) {
+    _totalValue = price*boxes*days;
+  }
+
+  void _changeBoxPrice(int pickerValue) {
+    setState(() {
+      switch (pickerValue) {
+        case 0:
+          _boxPrice = 22500;
+          _updateTotalValue(_boxPrice, _boxes, _daysCount);
+          debugPrint('PER DAY: '+22500.toString());
+          break;
+        case 1:
+          _boxPrice = 24250;
+          _updateTotalValue(_boxPrice, _boxes, _daysCount);
+          debugPrint('PER DAY: '+24250.toString());
+          break;
+        case 2:
+          _boxPrice = 25000;
+          _updateTotalValue(_boxPrice, _boxes, _daysCount);
+          debugPrint('PER DAY: '+25000.toString());
+          break;
+        case 3:
+          break;
+      }
+    });
   }
 
   // TODO: ADD WIDGET FOR NAVIGATION
@@ -222,7 +249,7 @@ class _MyHomePageState extends State<MyHomePage> {
           elevation: 2.0,
           child: Padding(
             padding:
-            const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
+                const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
             child: orderCardElements(),
           ),
         ));
@@ -247,8 +274,8 @@ class _MyHomePageState extends State<MyHomePage> {
           subscribeLengthPickerLabel(),
           Container(
             constraints: BoxConstraints.expand(height: 130.0),
-            // TODO: LINK SubscribeLengthPicker TO CHANGE _boxPrice and _daysCount_
-            child: new SubscribeLengthPicker(),
+            // TODO: LINK SubscribeLengthPicker TO CHANGE _daysCount_
+            child: new SubscribeLengthPicker(onChanged: _changeBoxPrice),
           ),
           //new SubscribeLengthPicker(),
           proTips()
@@ -308,7 +335,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               Text(UiData.subscriptionLengthLabel,
                   style: TextStyle(fontSize: 16.0)),
-              new Text('10 hari', style: TextStyle(fontSize: 16.0))
+              new Text('$_daysCount hari', style: TextStyle(fontSize: 16.0))
             ],
           ),
         ),

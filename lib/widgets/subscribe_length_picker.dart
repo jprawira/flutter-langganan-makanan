@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:langganan_makanan/ui_data.dart';
 
-class PickerModel {
+class LengthPickerModel {
   bool isSelected;
   final String text;
   final String description;
 
-  PickerModel(this.isSelected, this.text, this.description);
+  LengthPickerModel(this.isSelected, this.text, this.description);
 }
 
 class SubscribeLengthPicker extends StatefulWidget {
+  SubscribeLengthPicker({Key key, this.pickerValue: 2, @required this.onChanged}) : super(key: key);
+
+  final int pickerValue;
+  final ValueChanged<int> onChanged;
+
   @override
   createState() {
     return new SubscribeLengthPickerState();
@@ -17,15 +22,23 @@ class SubscribeLengthPicker extends StatefulWidget {
 }
 
 class SubscribeLengthPickerState extends State<SubscribeLengthPicker> {
-  List<PickerModel> data = new List<PickerModel>();
+  List<LengthPickerModel> data = new List<LengthPickerModel>();
+
+  void toggleValue(int index) {
+    setState(() {
+      data.forEach((element) => element.isSelected = false);
+      data[index].isSelected = true;
+      widget.onChanged(index);
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    data.add(new PickerModel(false, '20 Hari', 'Rp 22,500/hari'));
-    data.add(new PickerModel(false, '10 Hari', 'Rp 24,250/hari'));
-    data.add(new PickerModel(true, '5 Hari', 'Rp 25,000/hari'));
-    data.add(new PickerModel(false, 'Pilih Sendiri', 'Min. 2 hari'));
+    data.add(new LengthPickerModel(false, '20 Hari', 'Rp 22,500/hari'));
+    data.add(new LengthPickerModel(false, '10 Hari', 'Rp 24,250/hari'));
+    data.add(new LengthPickerModel(true, '5 Hari', 'Rp 25,000/hari'));
+    data.add(new LengthPickerModel(false, 'Pilih Sendiri', 'Min. 2 hari'));
   }
 
   @override
@@ -47,19 +60,16 @@ class SubscribeLengthPickerState extends State<SubscribeLengthPicker> {
                   color: Colors.transparent,
                   child: InkWell(
                       onTap: () {
-                        setState(() {
-                          data.forEach((element) => element.isSelected = false);
-                          data[index].isSelected = true;
-                        });
+                        toggleValue(index);
                       },
-                      child: new PickerItem(data[index]))));
+                      child: new LengthPickerItem(data[index]))));
         });
   }
 }
 
-class PickerItem extends StatelessWidget {
-  final PickerModel _item;
-  PickerItem(this._item);
+class LengthPickerItem extends StatelessWidget {
+  final LengthPickerModel _item;
+  LengthPickerItem(this._item);
 
   @override
   Widget build(BuildContext context) {
