@@ -179,14 +179,26 @@ class _CalendarState extends State<Calendar> {
             ),
           );
         } else {
-          dayWidgets.add(
-            new CalendarTile(
-              onDateSelected: () => handleSelectedDateAndUserCallback(day),
-              date: day,
-              dateStyles: configureDateStyle(monthStarted, monthEnded),
-              isSelected: Utils.isSameDay(selectedDate, day),
-            ),
-          );
+          // To handle displaying weekends
+          if (day.weekday % 6 != 0 && day.weekday % 7 != 0) {
+            dayWidgets.add(
+              new CalendarTile(
+                onDateSelected: () => handleSelectedDateAndUserCallback(day),
+                date: day,
+                dateStyles: configureDateStyle(monthStarted, monthEnded),
+                isSelected: Utils.isSameDay(selectedDate, day),
+              ),
+            );
+          } else {
+            dayWidgets.add(
+              new CalendarTile(
+                onDateSelected: () => handleSelectedDateAndUserCallback(day),
+                date: day,
+                dateStyles: new TextStyle(color: Colors.grey[400]),
+                isSelected: Utils.isSameDay(selectedDate, day),
+              ),
+            );
+          }
         }
       },
     );
@@ -323,7 +335,6 @@ class _CalendarState extends State<Calendar> {
     }
   }
 
-  // TODO: DISABLE DATE PICKING FOR PREVIOUS DAYS, HOLIDAYS, AND WEEKEND
   Future<Null> selectDateFromPicker() async {
     DateTime selected = await showDatePicker(
       context: context,
@@ -385,6 +396,7 @@ class _CalendarState extends State<Calendar> {
     }
   }
 
+  // TODO: DISABLE DATE PICKING FOR PREVIOUS DAYS, HOLIDAYS, AND WEEKEND
   void handleSelectedDateAndUserCallback(DateTime day) {
     var firstDayOfCurrentWeek = Utils.firstDayOfWeek(day);
     var lastDayOfCurrentWeek = Utils.lastDayOfWeek(day);
