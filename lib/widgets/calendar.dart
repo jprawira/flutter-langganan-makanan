@@ -70,7 +70,7 @@ class CalendarState extends State<Calendar> {
     displayMonth = Utils.formatMonth(Utils.firstDayOfMonth(today));
   }
 
-  /// Set selected days to next n-weekdays.
+  /// Set selected days to next n-workdays.
   void _updateSelectedDays() {
     DateTime _thisDay = new DateTime(today.year, today.month, today.day);
     _selectedDays = Utils.workdaysInRange(
