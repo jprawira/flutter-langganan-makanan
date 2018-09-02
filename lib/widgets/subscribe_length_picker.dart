@@ -1,23 +1,26 @@
 import 'package:tuple/tuple.dart';
-
 import 'package:flutter/material.dart';
 import 'package:langganan_makanan/ui_data.dart';
 import 'subscribe_length_dialog.dart';
 
 class LengthPickerModel {
   bool isSelected;
-  final String text;
-  final String description;
+  String text;
+  String description;
 
   LengthPickerModel(this.isSelected, this.text, this.description);
 }
 
 class SubscribeLengthPicker extends StatefulWidget {
   final int pickerValue;
+  final int subscribeLength;
   final ValueChanged<Tuple2<int, int>> onChanged;
 
   SubscribeLengthPicker(
-      {Key key, this.pickerValue: 2, @required this.onChanged})
+      {Key key,
+      this.pickerValue: 2,
+      @required this.subscribeLength,
+      @required this.onChanged})
       : super(key: key);
 
   @override
@@ -27,7 +30,9 @@ class SubscribeLengthPicker extends StatefulWidget {
 class SubscribeLengthPickerState extends State<SubscribeLengthPicker> {
   List<LengthPickerModel> data = new List<LengthPickerModel>();
 
-  void toggleValue(int index, [int days]) {
+  void toggleValue(Tuple2<int, int> tuple) {
+    int index = tuple.item1;
+    int days = tuple.item2;
     setState(() {
       data.forEach((element) => element.isSelected = false);
       data[index].isSelected = true;
@@ -35,15 +40,29 @@ class SubscribeLengthPickerState extends State<SubscribeLengthPicker> {
     switch (index) {
       case 0:
         widget.onChanged(new Tuple2<int, int>(index, 20));
+        data[3].text = 'Pilih Sendiri';
+        data[3].description = 'Min. 2 hari';
         break;
       case 1:
         widget.onChanged(new Tuple2<int, int>(index, 10));
+        data[3].text = 'Pilih Sendiri';
+        data[3].description = 'Min. 2 hari';
         break;
       case 2:
         widget.onChanged(new Tuple2<int, int>(index, 5));
+        data[3].text = 'Pilih Sendiri';
+        data[3].description = 'Min. 2 hari';
         break;
       case 3:
         widget.onChanged(new Tuple2<int, int>(index, days));
+        data[3].text = days.toString() + " Hari";
+        if (days >= 2 && days < 10) {
+          data[3].description = 'Rp 25,000/hari';
+        } else if (days > 10 && days < 20) {
+          data[3].description = 'Rp 24,250/hari';
+        } else {
+          data[3].description = 'Rp 22,500/hari';
+        }
         break;
     }
   }
@@ -78,9 +97,15 @@ class SubscribeLengthPickerState extends State<SubscribeLengthPicker> {
                   child: InkWell(
                       onTap: () {
                         if (index != 3) {
-                          toggleValue(index);
+                          toggleValue(new Tuple2<int, int>(index, 0));
                         } else {
-                          showDialog(context: context, child: new SimpleDialog(children: <Widget>[new SubscribeLengthDialog()]));
+                          showDialog(
+                              context: context,
+                              child: new SimpleDialog(children: <Widget>[
+                                new SubscribeLengthDialog(
+                                    subscribeLength: widget.subscribeLength,
+                                    onChanged: toggleValue)
+                              ]));
                         }
                       },
                       child: new LengthPickerItem(data[index]))));

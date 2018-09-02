@@ -1,11 +1,14 @@
+import 'package:tuple/tuple.dart';
 import 'package:flutter/material.dart';
 import 'package:langganan_makanan/ui_data.dart';
 
-// TODO: SET UP DIALOG
 class SubscribeLengthDialog extends StatefulWidget {
-  final ValueChanged<int> onChanged;
+  final ValueChanged<Tuple2<int, int>> onChanged;
+  final int subscribeLength;
 
-  SubscribeLengthDialog({Key key, this.onChanged}) : super(key: key);
+  SubscribeLengthDialog(
+      {Key key, this.subscribeLength, @required this.onChanged})
+      : super(key: key);
 
   @override
   SubscribeLengthDialogState createState() => new SubscribeLengthDialogState();
@@ -18,16 +21,13 @@ class SubscribeLengthDialogState extends State<SubscribeLengthDialog> {
   @override
   void initState() {
     super.initState();
-    // TODO: PROPERLY INITIALIZE _subscribeLength
-    _subscribeLength = 5;
-    // TODO: USE _subscribeLength TO INITIALIZE
-    _subscribeLengthController = new TextEditingController(text: '5');
+    _subscribeLength = widget.subscribeLength;
+    _subscribeLengthController = new TextEditingController(text: _subscribeLength.toString());
   }
 
   void _updateSubscribeLength() {
-    // TODO: HANDLE UPDATE LENGTH
+    widget.onChanged(new Tuple2<int, int>(3, _subscribeLength));
     _subscribeLengthController.text = _subscribeLength.toString();
-    debugPrint('LENGTH: ' + _subscribeLength.toString());
   }
 
   void _decrementSubscribeLength() {
@@ -78,10 +78,9 @@ class SubscribeLengthDialogState extends State<SubscribeLengthDialog> {
                         children: <Widget>[
                           new Flexible(
                               child: new TextField(
-                            // TODO: HANDLE TEXT CHANGE
                             controller: _subscribeLengthController,
                             onChanged: (text) {
-                              //_boxes = int.parse(text);
+                              _subscribeLength = int.parse(text);
                             },
                             keyboardType: TextInputType.number,
                             textAlign: TextAlign.left,
@@ -151,7 +150,8 @@ class SubscribeLengthDialogState extends State<SubscribeLengthDialog> {
             ]),
           ),
           new Container(
-              padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 4.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 4.0),
               child: new Container(
                   constraints: const BoxConstraints.expand(height: 54.0),
                   child: new Material(
@@ -160,8 +160,7 @@ class SubscribeLengthDialogState extends State<SubscribeLengthDialog> {
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(5.0))),
                     child: new InkWell(
-                      // TODO: CLOSE DIALOG AND SET SUBSCRIBE LENGTH
-                      onTap: () => null,
+                      onTap: () => Navigator.pop(context),
                       splashColor: Colors.red,
                       child: new Ink(
                         height: 50.0,

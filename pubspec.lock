@@ -90,7 +90,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "0e5f72ba102b2ca51ad0483edba03d759c0df304"
+      resolved-ref: ed30ecb02a30537be210687026d84a8965875fb5
       url: "git://github.com/jprawira/flutter_calendar.git"
     source: git
     version: "0.0.3"

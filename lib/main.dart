@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tuple/tuple.dart';
 import 'package:flutter_calendar/flutter_calendar.dart';
-
+import 'package:intl/date_symbol_data_local.dart';
 import 'widgets/subscribe_length_picker.dart';
 import 'ui_data.dart';
 
@@ -10,6 +10,8 @@ void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  final initLocale = initializeDateFormatting('id', null);
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -31,6 +33,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final rupiahFormat = new NumberFormat("###,###,###");
+  final dateFormat = new DateFormat("EEEEE, dd MMMM yyyy", "id");
 
   int _boxPrice;
   int _boxes;
@@ -72,14 +75,13 @@ class _MyHomePageState extends State<MyHomePage> {
   void _updateBoxCount() {
     _totalValue = _boxes * 25000;
     _boxesCountController.text = _boxes.toString();
-    debugPrint('BOXES: ' + _boxes.toString());
   }
 
   void _updateTotalValue(int price, int boxes, int days) {
     _totalValue = price * boxes * days;
   }
 
-  void _updateBoxPriceAndDaysCount(Tuple2<int,int> tuple) {
+  void _updateBoxPriceAndDaysCount(Tuple2<int, int> tuple) {
     int pickerValue = tuple.item1;
     int days = tuple.item2;
     setState(() {
@@ -88,40 +90,28 @@ class _MyHomePageState extends State<MyHomePage> {
           _boxPrice = 22500;
           _subscribeLength = days;
           _updateTotalValue(_boxPrice, _boxes, _subscribeLength);
-          debugPrint('PER DAY: ' + _boxPrice.toString());
-          debugPrint('DAYS: ' + _subscribeLength.toString());
           break;
         case 1:
           _boxPrice = 24250;
           _subscribeLength = days;
           _updateTotalValue(_boxPrice, _boxes, _subscribeLength);
-          debugPrint('PER DAY: ' + _boxPrice.toString());
-          debugPrint('DAYS: ' + _subscribeLength.toString());
           break;
         case 2:
           _boxPrice = 25000;
           _subscribeLength = days;
           _updateTotalValue(_boxPrice, _boxes, _subscribeLength);
-          debugPrint('PER DAY: ' + _boxPrice.toString());
-          debugPrint('DAYS: ' + _subscribeLength.toString());
           break;
         case 3:
           _subscribeLength = days;
-          if (days >= 2 && days <=5) {
+          if (days >= 2 && days < 10) {
             _boxPrice = 25000;
             _updateTotalValue(_boxPrice, _boxes, _subscribeLength);
-            debugPrint('PER DAY: ' + _boxPrice.toString());
-            debugPrint('DAYS: ' + _subscribeLength.toString());
-          } else if (days > 5 && days <= 10) {
+          } else if (days > 10 && days < 20) {
             _boxPrice = 24250;
             _updateTotalValue(_boxPrice, _boxes, _subscribeLength);
-            debugPrint('PER DAY: ' + _boxPrice.toString());
-            debugPrint('DAYS: ' + _subscribeLength.toString());
           } else {
             _boxPrice = 22500;
             _updateTotalValue(_boxPrice, _boxes, _subscribeLength);
-            debugPrint('PER DAY: ' + _boxPrice.toString());
-            debugPrint('DAYS: ' + _subscribeLength.toString());
           }
           break;
       }
@@ -239,7 +229,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ]));
   }
 
-  // TODO: HANDLE WHEN USER INPUT NUMBER OF BOXES UNDER 1
   Widget numberOfBoxField() {
     return new Container(
         decoration: new BoxDecoration(
@@ -254,7 +243,11 @@ class _MyHomePageState extends State<MyHomePage> {
               controller: _boxesCountController,
               onChanged: (text) {
                 _boxes = int.parse(text);
-                _updateBoxCount();
+                if (_boxes > 1) {
+                  _updateBoxCount();
+                } else {
+                  _boxesCountController.text = '1';
+                }
               },
               keyboardType: TextInputType.number,
               textAlign: TextAlign.right,
@@ -391,45 +384,47 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget orderCardElements() {
-    return new Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
-        Widget>[
-      numberOfBoxLabel(),
-      new Container(
-        padding: const EdgeInsets.all(4.0),
-        child: new Row(children: <Widget>[
-          new Flexible(child: numberOfBoxField()),
-          new Padding(padding: const EdgeInsets.symmetric(horizontal: 4.0)),
-          numberOfBoxDecrementButton(),
-          new Padding(padding: const EdgeInsets.symmetric(horizontal: 2.0)),
-          numberOfBoxIncrementButton()
-        ]),
-      ),
-      new Divider(height: 8.0, color: Colors.transparent),
-      subscribeLengthPickerLabel(),
-      new Container(
-        constraints: new BoxConstraints.expand(
-            height: MediaQuery.of(context).orientation == Orientation.portrait
-                ? _deviceSize.height / 5
-                : _deviceSize.width / 2.5),
-        // TODO: ADD DIALOG FOR "Pilih Sendiri"
-        // TODO: ADD LOGIC FOR PICKING DATE
-        child:
-            new SubscribeLengthPicker(onChanged: _updateBoxPriceAndDaysCount),
-      ),
-      new Divider(height: 12.0, color: Colors.transparent),
-      new Container(
-          decoration: new BoxDecoration(
-              boxShadow: [new BoxShadow(color: Colors.grey, blurRadius: 6.0)]),
-          child: new Material(
-              elevation: 0.0,
-              color: Colors.transparent,
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(5.0))),
-              // TODO: MAKE CALENDAR ABLE TO PICK DAYS AND UPDATE _daysCount
-              child: new Calendar(daysSelected: _subscribeLength))),
-      new Divider(height: 12.0, color: Colors.transparent),
-      proTips()
-    ]);
+    return new Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          numberOfBoxLabel(),
+          new Container(
+            padding: const EdgeInsets.all(4.0),
+            child: new Row(children: <Widget>[
+              new Flexible(child: numberOfBoxField()),
+              new Padding(padding: const EdgeInsets.symmetric(horizontal: 4.0)),
+              numberOfBoxDecrementButton(),
+              new Padding(padding: const EdgeInsets.symmetric(horizontal: 2.0)),
+              numberOfBoxIncrementButton()
+            ]),
+          ),
+          new Divider(height: 8.0, color: Colors.transparent),
+          subscribeLengthPickerLabel(),
+          new Container(
+            constraints: new BoxConstraints.expand(
+                height:
+                    MediaQuery.of(context).orientation == Orientation.portrait
+                        ? _deviceSize.height / 5
+                        : _deviceSize.width / 2.5),
+            child: new SubscribeLengthPicker(
+                subscribeLength: _subscribeLength,
+                onChanged: _updateBoxPriceAndDaysCount),
+          ),
+          new Divider(height: 12.0, color: Colors.transparent),
+          new Container(
+              decoration: new BoxDecoration(boxShadow: [
+                new BoxShadow(color: Colors.grey, blurRadius: 6.0)
+              ]),
+              child: new Material(
+                  elevation: 0.0,
+                  color: Colors.transparent,
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                  // TODO: MAKE CALENDAR ABLE TO PICK DAYS AND UPDATE _daysCount
+                  child: new Calendar(daysSelected: _subscribeLength))),
+          new Divider(height: 12.0, color: Colors.transparent),
+          proTips()
+        ]);
   }
 
   Widget detailsCard() {
@@ -491,14 +486,17 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               new Text(UiData.subscriptionLengthLabel,
                   style: new TextStyle(fontSize: 16.0)),
-              new Text('$_subscribeLength hari', style: new TextStyle(fontSize: 16.0))
+              new Text('$_subscribeLength hari',
+                  style: new TextStyle(fontSize: 16.0))
             ],
           ),
         ),
         // TODO: CHANGE TEXT USING startDate ACCORDINGLY
         new Padding(
           padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 4.0),
-          child: new Text('Mulai Senin, 3 September 2018',
+          child: new Text(
+              'Mulai ' +
+                  dateFormat.format(DateTime.now()),
               style: new TextStyle(color: Colors.grey, fontSize: 14.0)),
         ),
         new Divider(),
@@ -534,7 +532,6 @@ class _MyHomePageState extends State<MyHomePage> {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(5.0))),
               child: new InkWell(
-                // TODO: DO SOMETHING
                 onTap: () => debugPrint('TOTAL: ' + _totalValue.toString()),
                 splashColor: UiData.mainOrange,
                 child: new Ink(

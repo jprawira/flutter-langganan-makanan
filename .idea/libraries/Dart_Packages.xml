@@ -89,7 +89,7 @@
         <entry key="flutter_calendar">
           <value>
             <list>
-              <option value="$USER_HOME$/flutter/.pub-cache/git/flutter_calendar-0e5f72ba102b2ca51ad0483edba03d759c0df304/lib" />
+              <option value="$USER_HOME$/flutter/.pub-cache/git/flutter_calendar-ed30ecb02a30537be210687026d84a8965875fb5/lib" />
             </list>
           </value>
         </entry>
@@ -419,7 +419,7 @@
     </properties>
     <CLASSES>
       <root url="file://$USER_HOME$/flutter/.pub-cache/git/date_utils-2e2123e5add6e134a52f29bad9420dc95411560c/lib" />
-      <root url="file://$USER_HOME$/flutter/.pub-cache/git/flutter_calendar-0e5f72ba102b2ca51ad0483edba03d759c0df304/lib" />
+      <root url="file://$USER_HOME$/flutter/.pub-cache/git/flutter_calendar-ed30ecb02a30537be210687026d84a8965875fb5/lib" />
       <root url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/analyzer-0.32.4/lib" />
       <root url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/args-1.5.0/lib" />
       <root url="file://$USER_HOME$/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.0.8/lib" />
