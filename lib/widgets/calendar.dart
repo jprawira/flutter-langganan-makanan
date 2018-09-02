@@ -17,22 +17,26 @@ class Calendar extends StatefulWidget {
   final bool showTodayAction;
   final bool showCalendarPickerIcon;
   final DateTime initialCalendarDateOverride;
+  final int daysSelected;
 
   Calendar(
-      {this.onDateSelected,
+      {Key key,
+      this.onDateSelected,
       this.onSelectedRangeChange,
       this.isExpandable: false,
       this.dayBuilder,
       this.showTodayAction: false,
       this.showChevronsToChangeRange: true,
       this.showCalendarPickerIcon: false,
-      this.initialCalendarDateOverride});
+      this.initialCalendarDateOverride,
+      @required this.daysSelected})
+      : super(key: key);
 
   @override
-  _CalendarState createState() => new _CalendarState();
+  CalendarState createState() => new CalendarState();
 }
 
-class _CalendarState extends State<Calendar> {
+class CalendarState extends State<Calendar> {
   final calendarUtils = new Utils();
   final DateTime now = new DateTime.now();
   DateTime today = new DateTime.now();
@@ -44,8 +48,11 @@ class _CalendarState extends State<Calendar> {
   bool isExpanded = true;
   String displayMonth;
 
+  List<DateTime> _selectedDays;
+
   DateTime get selectedDate => _selectedDate;
 
+  @override
   void initState() {
     super.initState();
     initializeDateFormatting('id', null);
@@ -59,7 +66,27 @@ class _CalendarState extends State<Calendar> {
             .toList()
             .sublist(0, 7);
     _selectedDate = today;
+
     displayMonth = Utils.formatMonth(Utils.firstDayOfMonth(today));
+  }
+
+  /// Set selected days to next n-weekdays.
+  void _updateSelectedDays() {
+    DateTime _thisDay = new DateTime(today.year, today.month, today.day);
+    _selectedDays = Utils.workdaysInRange(
+            _thisDay, _thisDay.add(new Duration(days: widget.daysSelected + 1)))
+        .toList();
+
+    while (_selectedDays.length < widget.daysSelected) {
+      DateTime _finalDay = _selectedDays.removeLast();
+      _selectedDays += Utils.workdaysInRange(
+          _finalDay, _finalDay.add(new Duration(days: widget.daysSelected - _selectedDays.length)))
+          .toList();
+    }
+
+    for (int i = 0; i < _selectedDays.length; i++) {
+      debugPrint("SELECTED: " + _selectedDays[i].toIso8601String());
+    }
   }
 
   Widget get nameAndIconRow {
@@ -186,7 +213,8 @@ class _CalendarState extends State<Calendar> {
                 onDateSelected: () => handleSelectedDateAndUserCallback(day),
                 date: day,
                 dateStyles: configureDateStyle(monthStarted, monthEnded),
-                isSelected: Utils.isSameDay(selectedDate, day),
+                //isSelected: Utils.isSameDay(selectedDate, day),
+                isSelected: _selectedDays.contains(day),
               ),
             );
           } else {
@@ -240,6 +268,8 @@ class _CalendarState extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
+    // Update values
+    _updateSelectedDays();
     return new Container(
       child: new Column(
         mainAxisAlignment: MainAxisAlignment.start,

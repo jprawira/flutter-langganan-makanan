@@ -30,10 +30,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final rupiahFormat = new NumberFormat("###,###,###");
 
-  int _boxes = 1;
-  int _daysCount = 2;
-  int _totalValue = 25000;
-  int _boxPrice = 25000;
+  int _boxPrice;
+  int _boxes;
+  int _daysCount;
+  int _totalValue;
   DateTime startDate;
   DateTime endDate;
   var _deviceSize;
@@ -42,6 +42,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    _boxPrice = 25000;
+    _boxes = 1;
+    _daysCount = 5;
+    _totalValue = 25000;
+    _updateTotalValue(_boxPrice, _boxes, _daysCount);
   }
 
   void _decrementBoxCount() {
@@ -72,23 +77,29 @@ class _MyHomePageState extends State<MyHomePage> {
     _totalValue = price * boxes * days;
   }
 
-  void _updateBoxPrice(int pickerValue) {
+  void _updateBoxPriceAndDaysCount(int pickerValue) {
     setState(() {
       switch (pickerValue) {
         case 0:
           _boxPrice = 22500;
+          _daysCount = 20;
           _updateTotalValue(_boxPrice, _boxes, _daysCount);
-          debugPrint('PER DAY: ' + 22500.toString());
+          debugPrint('PER DAY: ' + _boxPrice.toString());
+          debugPrint('DAYS: ' + _daysCount.toString());
           break;
         case 1:
           _boxPrice = 24250;
+          _daysCount = 10;
           _updateTotalValue(_boxPrice, _boxes, _daysCount);
-          debugPrint('PER DAY: ' + 24250.toString());
+          debugPrint('PER DAY: ' + _boxPrice.toString());
+          debugPrint('DAYS: ' + _daysCount.toString());
           break;
         case 2:
           _boxPrice = 25000;
+          _daysCount = 5;
           _updateTotalValue(_boxPrice, _boxes, _daysCount);
-          debugPrint('PER DAY: ' + 25000.toString());
+          debugPrint('PER DAY: ' + _boxPrice.toString());
+          debugPrint('DAYS: ' + _daysCount.toString());
           break;
         case 3:
           break;
@@ -100,22 +111,23 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget stepsDisplay() {
     return new PreferredSize(
       preferredSize: const Size.fromHeight(48.0),
-      child: Container(
+      child: new Container(
           height: 48.0,
           alignment: Alignment.center,
-          child: Row(
+          child: new Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Column(
+              new Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Text(
+                  new Text(
                     'Mulai',
-                    style: TextStyle(color: UiData.mainOrange, fontSize: 12.0),
+                    style:
+                        new TextStyle(color: UiData.mainOrange, fontSize: 12.0),
                   ),
-                  Container(
-                      padding: EdgeInsets.only(bottom: 10.0),
-                      child: PhysicalModel(
+                  new Container(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: new PhysicalModel(
                         shape: BoxShape.circle,
                         borderRadius: new BorderRadius.circular(20.0),
                         color: Colors.transparent,
@@ -133,16 +145,17 @@ class _MyHomePageState extends State<MyHomePage> {
                       ))
                 ],
               ),
-              Column(
+              new Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Text(
+                  new Text(
                     'Pengiriman',
-                    style: TextStyle(color: Colors.grey[400], fontSize: 12.0),
+                    style:
+                        new TextStyle(color: Colors.grey[400], fontSize: 12.0),
                   ),
-                  Container(
-                      padding: EdgeInsets.only(bottom: 10.0),
-                      child: PhysicalModel(
+                  new Container(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: new PhysicalModel(
                         shape: BoxShape.circle,
                         borderRadius: new BorderRadius.circular(20.0),
                         color: Colors.transparent,
@@ -160,16 +173,17 @@ class _MyHomePageState extends State<MyHomePage> {
                       ))
                 ],
               ),
-              Column(
+              new Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Text(
+                  new Text(
                     'Pembayaran',
-                    style: TextStyle(color: Colors.grey[400], fontSize: 12.0),
+                    style:
+                        new TextStyle(color: Colors.grey[400], fontSize: 12.0),
                   ),
-                  Container(
-                      padding: EdgeInsets.only(bottom: 10.0),
-                      child: PhysicalModel(
+                  new Container(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: new PhysicalModel(
                         shape: BoxShape.circle,
                         borderRadius: new BorderRadius.circular(20.0),
                         color: Colors.transparent,
@@ -195,11 +209,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget numberOfBoxLabel() {
     return new Container(
         padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
-        child: Column(
+        child: new Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(UiData.numberOfBoxPerDayLabel,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0))
+              new Text(UiData.numberOfBoxPerDayLabel,
+                  style: new TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 18.0))
             ]));
   }
 
@@ -208,13 +223,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return new Container(
         decoration: new BoxDecoration(
             shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(5.0),
+            borderRadius: new BorderRadius.circular(5.0),
             border: new Border.all(color: UiData.mainOrange, width: 2.0)),
         child: new Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Flexible(
-                child: TextField(
+            new Flexible(
+                child: new TextField(
               controller: _boxesCountController,
               onChanged: (text) {
                 _boxes = int.parse(text);
@@ -222,26 +237,27 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               keyboardType: TextInputType.number,
               textAlign: TextAlign.right,
-              style: TextStyle(
+              style: new TextStyle(
                   color: Colors.grey[700],
                   fontWeight: FontWeight.bold,
                   fontSize: 16.0),
-              decoration: InputDecoration(border: InputBorder.none),
+              decoration: new InputDecoration(border: InputBorder.none),
             )),
-            Text('Box',
-                style: TextStyle(
+            new Text('Box',
+                style: new TextStyle(
                     color: Colors.grey[700],
                     fontWeight: FontWeight.bold,
                     fontSize: 16.0)),
-            Padding(padding: EdgeInsets.only(right: _deviceSize.width / 6.0))
+            new Padding(
+                padding: new EdgeInsets.only(right: _deviceSize.width / 6.0))
           ],
         ));
   }
 
   Widget numberOfBoxDecrementButton() {
     return new Container(
-        constraints: BoxConstraints.expand(height: 46.0, width: 60.0),
-        child: Material(
+        constraints: const BoxConstraints.expand(height: 46.0, width: 60.0),
+        child: new Material(
           elevation: 0.0,
           color: Colors.transparent,
           shape: const RoundedRectangleBorder(
@@ -251,13 +267,13 @@ class _MyHomePageState extends State<MyHomePage> {
           child: new InkWell(
             onTap: _decrementBoxCount,
             splashColor: Colors.redAccent,
-            child: Ink(
-              decoration: BoxDecoration(color: UiData.mainOrange),
-              child: Center(
-                child: Text(
+            child: new Ink(
+              decoration: new BoxDecoration(color: UiData.mainOrange),
+              child: new Center(
+                child: new Text(
                   '-',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 28.0),
+                  style: new TextStyle(color: Colors.white, fontSize: 28.0),
                 ),
               ),
             ),
@@ -267,8 +283,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget numberOfBoxIncrementButton() {
     return new Container(
-        constraints: BoxConstraints.expand(height: 46.0, width: 60.0),
-        child: Material(
+        constraints: const BoxConstraints.expand(height: 46.0, width: 60.0),
+        child: new Material(
           elevation: 0.0,
           color: Colors.transparent,
           shape: const RoundedRectangleBorder(
@@ -278,13 +294,13 @@ class _MyHomePageState extends State<MyHomePage> {
           child: new InkWell(
             onTap: _incrementBoxCount,
             splashColor: Colors.redAccent,
-            child: Ink(
-              decoration: BoxDecoration(color: UiData.mainOrange),
-              child: Center(
-                child: Text(
+            child: new Ink(
+              decoration: new BoxDecoration(color: UiData.mainOrange),
+              child: new Center(
+                child: new Text(
                   '+',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 28.0),
+                  style: new TextStyle(color: Colors.white, fontSize: 28.0),
                 ),
               ),
             ),
@@ -295,37 +311,39 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget subscribeLengthPickerLabel() {
     return new Container(
         padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
-        child: Column(
+        child: new Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(UiData.subscribeLengthLabel,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0))
+              new Text(UiData.subscribeLengthLabel,
+                  style: new TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 18.0))
             ]));
   }
 
   Widget proTips() {
-    return Container(
+    return new Container(
       padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
-      child: Material(
+      child: new Material(
         color: UiData.proTipBackground,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5.0))),
-        child: Padding(
+        child: new Padding(
           padding: const EdgeInsets.all(12.0),
-          child: Column(
+          child: new Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
+                new Text(
                   UiData.proTipsLabel,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                  style: new TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 14.0),
                 ),
-                Divider(
+                new Divider(
                   height: 4.0,
                   color: Colors.transparent,
                 ),
-                Text(
+                new Text(
                   UiData.proTipsContent,
-                  style: TextStyle(fontSize: 14.0),
+                  style: new TextStyle(fontSize: 14.0),
                 )
               ]),
         ),
@@ -343,7 +361,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: new Card(
               color: Colors.white,
               elevation: 0.0,
-              child: Padding(
+              child: new Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
                 child: orderCardElements(),
@@ -352,48 +370,45 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget orderCardElements() {
-    return new Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          numberOfBoxLabel(),
-          Container(
-            padding: const EdgeInsets.all(4.0),
-            child: Row(children: <Widget>[
-              Flexible(child: numberOfBoxField()),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 4.0)),
-              numberOfBoxDecrementButton(),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 2.0)),
-              numberOfBoxIncrementButton()
-            ]),
-          ),
-          Divider(height: 8.0, color: Colors.transparent),
-          subscribeLengthPickerLabel(),
-          Container(
-            constraints: BoxConstraints.expand(
-                height:
-                    MediaQuery.of(context).orientation == Orientation.portrait
-                        ? _deviceSize.height / 5
-                        : _deviceSize.width / 2.5),
-            // TODO: LINK SubscribeLengthPicker TO UPDATE _daysCount
-            // TODO: ADD DIALOG FOR "Pilih Sendiri"
-            // TODO: ADD LOGIC FOR PICKING DATE
-            child: new SubscribeLengthPicker(onChanged: _updateBoxPrice),
-          ),
-          Divider(height: 12.0, color: Colors.transparent),
-          new Container(
-              decoration: new BoxDecoration(boxShadow: [
-                new BoxShadow(color: Colors.grey, blurRadius: 6.0)
-              ]),
-              child: Material(
-                  elevation: 0.0,
-                  color: Colors.transparent,
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                  // TODO: MAKE CALENDAR ABLE TO PICK DAYS AND UPDATE _daysCount
-                  child: new Calendar())),
-          Divider(height: 12.0, color: Colors.transparent),
-          proTips()
-        ]);
+    return new Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
+        Widget>[
+      numberOfBoxLabel(),
+      new Container(
+        padding: const EdgeInsets.all(4.0),
+        child: new Row(children: <Widget>[
+          new Flexible(child: numberOfBoxField()),
+          new Padding(padding: const EdgeInsets.symmetric(horizontal: 4.0)),
+          numberOfBoxDecrementButton(),
+          new Padding(padding: const EdgeInsets.symmetric(horizontal: 2.0)),
+          numberOfBoxIncrementButton()
+        ]),
+      ),
+      new Divider(height: 8.0, color: Colors.transparent),
+      subscribeLengthPickerLabel(),
+      new Container(
+        constraints: new BoxConstraints.expand(
+            height: MediaQuery.of(context).orientation == Orientation.portrait
+                ? _deviceSize.height / 5
+                : _deviceSize.width / 2.5),
+        // TODO: ADD DIALOG FOR "Pilih Sendiri"
+        // TODO: ADD LOGIC FOR PICKING DATE
+        child:
+            new SubscribeLengthPicker(onChanged: _updateBoxPriceAndDaysCount),
+      ),
+      new Divider(height: 12.0, color: Colors.transparent),
+      new Container(
+          decoration: new BoxDecoration(
+              boxShadow: [new BoxShadow(color: Colors.grey, blurRadius: 6.0)]),
+          child: new Material(
+              elevation: 0.0,
+              color: Colors.transparent,
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(5.0))),
+              // TODO: MAKE CALENDAR ABLE TO PICK DAYS AND UPDATE _daysCount
+              child: new Calendar(daysSelected: _daysCount))),
+      new Divider(height: 12.0, color: Colors.transparent),
+      proTips()
+    ]);
   }
 
   Widget detailsCard() {
@@ -413,67 +428,70 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget detailsText() {
     return new Container(
       padding: const EdgeInsets.all(12.0),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
-          Widget>[
-        Padding(
+      child:
+          new Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
+              Widget>[
+        new Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 0.0),
-          child: Text(
+          child: new Text(
             UiData.subscriptionDetailLabel,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+            style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
           ),
         ),
-        Padding(
+        new Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 0.0),
-          child: Row(
+          child: new Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(UiData.pricePerBoxLabel, style: TextStyle(fontSize: 16.0)),
+              new Text(UiData.pricePerBoxLabel,
+                  style: new TextStyle(fontSize: 16.0)),
               new Text('Rp ' + rupiahFormat.format(_boxPrice),
-                  style: TextStyle(fontSize: 16.0))
+                  style: new TextStyle(fontSize: 16.0))
             ],
           ),
         ),
-        Divider(),
-        Padding(
+        new Divider(),
+        new Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 0.0),
-          child: Row(
+          child: new Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(UiData.totalNumberOfBoxLabel,
-                  style: TextStyle(fontSize: 16.0)),
-              new Text('$_boxes Box', style: TextStyle(fontSize: 16.0))
+              new Text(UiData.totalNumberOfBoxLabel,
+                  style: new TextStyle(fontSize: 16.0)),
+              new Text('$_boxes Box', style: new TextStyle(fontSize: 16.0))
             ],
           ),
         ),
-        Divider(),
-        Padding(
+        new Divider(),
+        new Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 0.0),
-          child: Row(
+          child: new Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(UiData.subscriptionLengthLabel,
-                  style: TextStyle(fontSize: 16.0)),
-              new Text('$_daysCount hari', style: TextStyle(fontSize: 16.0))
+              new Text(UiData.subscriptionLengthLabel,
+                  style: new TextStyle(fontSize: 16.0)),
+              new Text('$_daysCount hari', style: new TextStyle(fontSize: 16.0))
             ],
           ),
         ),
         // TODO: CHANGE TEXT USING startDate ACCORDINGLY
-        Padding(
+        new Padding(
           padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 4.0),
-          child: new Text('Mulai Selasa, 28 Agustus 2018',
-              style: TextStyle(color: Colors.grey, fontSize: 14.0)),
+          child: new Text('Mulai Senin, 3 September 2018',
+              style: new TextStyle(color: Colors.grey, fontSize: 14.0)),
         ),
-        Divider(),
-        Padding(
+        new Divider(),
+        new Padding(
           padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 0.0),
-          child: Row(
+          child: new Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(UiData.totalAmount,
-                  style:
-                      TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+              new Text(UiData.totalAmount,
+                  style: new TextStyle(
+                      fontSize: 16.0, fontWeight: FontWeight.bold)),
               new Text('Rp ' + rupiahFormat.format(_totalValue),
-                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold))
+                  style: new TextStyle(
+                      fontSize: 16.0, fontWeight: FontWeight.bold))
             ],
           ),
         ),
@@ -484,29 +502,30 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget nextButton() {
     return new Container(
         padding: const EdgeInsets.all(12.0),
-        child: Container(
-            constraints: BoxConstraints.expand(height: 54.0),
+        child: new Container(
+            constraints: const BoxConstraints.expand(height: 54.0),
             decoration: new BoxDecoration(boxShadow: [
               new BoxShadow(color: Colors.red[300], blurRadius: 20.0)
             ]),
-            child: Material(
+            child: new Material(
               elevation: 0.0,
               color: Colors.transparent,
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(5.0))),
-              child: InkWell(
+              child: new InkWell(
                 // TODO: DO SOMETHING
                 onTap: () => debugPrint('TOTAL: ' + _totalValue.toString()),
                 splashColor: UiData.mainOrange,
-                child: Ink(
+                child: new Ink(
                   height: 50.0,
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: UiData.buttonGradient)),
-                  child: Center(
-                    child: Text(
+                  decoration: new BoxDecoration(
+                      gradient:
+                          new LinearGradient(colors: UiData.buttonGradient)),
+                  child: new Center(
+                    child: new Text(
                       'Selanjutnya',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: new TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w500,
                           fontSize: 18.0),
@@ -532,7 +551,6 @@ class _MyHomePageState extends State<MyHomePage> {
           title: new Text(widget.title),
         ),
         body: new ListView(
-            primary: false,
             children: <Widget>[orderCard(), detailsCard(), nextButton()]));
   }
 }

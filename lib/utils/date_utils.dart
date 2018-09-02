@@ -95,6 +95,29 @@ class Utils {
     }
   }
 
+  /// Returns a [DateTime] for each workday the given range.
+  ///
+  /// [start] inclusive
+  /// [end] exclusive
+  static Iterable<DateTime> workdaysInRange(
+      DateTime start, DateTime end) sync* {
+    var i = start;
+    var offset = start.timeZoneOffset;
+    while (i.isBefore(end)) {
+      if (i.weekday % 6 != 0 && i.weekday % 7 != 0) {
+        yield i;
+        i = i.add(new Duration(days: 1));
+        var timeZoneDiff = i.timeZoneOffset - offset;
+        if (timeZoneDiff.inSeconds != 0) {
+          offset = i.timeZoneOffset;
+          i = i.subtract(new Duration(seconds: timeZoneDiff.inSeconds));
+        }
+      } else {
+        i = i.add(new Duration(days: 1));
+      }
+    }
+  }
+
   /// Whether or not two times are on the same day.
   static bool isSameDay(DateTime a, DateTime b) {
     return a.year == b.year && a.month == b.month && a.day == b.day;

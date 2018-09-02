@@ -10,17 +10,15 @@ class LengthPickerModel {
 }
 
 class SubscribeLengthPicker extends StatefulWidget {
+  final int pickerValue;
+  final ValueChanged<int> onChanged;
+
   SubscribeLengthPicker(
       {Key key, this.pickerValue: 2, @required this.onChanged})
       : super(key: key);
 
-  final int pickerValue;
-  final ValueChanged<int> onChanged;
-
   @override
-  createState() {
-    return new SubscribeLengthPickerState();
-  }
+  SubscribeLengthPickerState createState() => new SubscribeLengthPickerState();
 }
 
 class SubscribeLengthPickerState extends State<SubscribeLengthPicker> {
