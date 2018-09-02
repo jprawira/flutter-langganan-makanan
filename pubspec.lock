@@ -71,11 +71,29 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
+  date_utils:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "2e2123e5add6e134a52f29bad9420dc95411560c"
+      url: "git://github.com/jprawira/date_utils.git"
+    source: git
+    version: "0.1.0"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_calendar:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "0e5f72ba102b2ca51ad0483edba03d759c0df304"
+      url: "git://github.com/jprawira/flutter_calendar.git"
+    source: git
+    version: "0.0.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -395,4 +413,4 @@ packages:
     source: hosted
     version: "2.1.15"
 sdks:
-  dart: ">=2.0.0-dev.68.0 <3.0.0"
+  dart: ">=2.0.0 <3.0.0"

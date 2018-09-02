@@ -11,6 +11,13 @@ dependencies:
   intl: ^0.15.7
   tuple: ^1.0.1
 
+  flutter_calendar:
+    git:
+      url: git://github.com/jprawira/flutter_calendar.git
+  date_utils:
+    git:
+      url: git://github.com/jprawira/date_utils.git
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

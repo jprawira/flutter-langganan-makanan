@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'widgets/calendar.dart';
+import 'package:tuple/tuple.dart';
+import 'package:flutter_calendar/flutter_calendar.dart';
+
 import 'widgets/subscribe_length_picker.dart';
 import 'ui_data.dart';
 
@@ -32,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int _boxPrice;
   int _boxes;
-  int _daysCount;
+  int _subscribeLength;
   int _totalValue;
   DateTime startDate;
   DateTime endDate;
@@ -44,9 +46,9 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     _boxPrice = 25000;
     _boxes = 1;
-    _daysCount = 5;
+    _subscribeLength = 5;
     _totalValue = 25000;
-    _updateTotalValue(_boxPrice, _boxes, _daysCount);
+    _updateTotalValue(_boxPrice, _boxes, _subscribeLength);
   }
 
   void _decrementBoxCount() {
@@ -54,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if (_boxes > 1) {
         _boxes--;
         _updateBoxCount();
-        _updateTotalValue(_boxPrice, _boxes, _daysCount);
+        _updateTotalValue(_boxPrice, _boxes, _subscribeLength);
       }
     });
   }
@@ -63,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _boxes++;
       _updateBoxCount();
-      _updateTotalValue(_boxPrice, _boxes, _daysCount);
+      _updateTotalValue(_boxPrice, _boxes, _subscribeLength);
     });
   }
 
@@ -77,31 +79,50 @@ class _MyHomePageState extends State<MyHomePage> {
     _totalValue = price * boxes * days;
   }
 
-  void _updateBoxPriceAndDaysCount(int pickerValue) {
+  void _updateBoxPriceAndDaysCount(Tuple2<int,int> tuple) {
+    int pickerValue = tuple.item1;
+    int days = tuple.item2;
     setState(() {
       switch (pickerValue) {
         case 0:
           _boxPrice = 22500;
-          _daysCount = 20;
-          _updateTotalValue(_boxPrice, _boxes, _daysCount);
+          _subscribeLength = days;
+          _updateTotalValue(_boxPrice, _boxes, _subscribeLength);
           debugPrint('PER DAY: ' + _boxPrice.toString());
-          debugPrint('DAYS: ' + _daysCount.toString());
+          debugPrint('DAYS: ' + _subscribeLength.toString());
           break;
         case 1:
           _boxPrice = 24250;
-          _daysCount = 10;
-          _updateTotalValue(_boxPrice, _boxes, _daysCount);
+          _subscribeLength = days;
+          _updateTotalValue(_boxPrice, _boxes, _subscribeLength);
           debugPrint('PER DAY: ' + _boxPrice.toString());
-          debugPrint('DAYS: ' + _daysCount.toString());
+          debugPrint('DAYS: ' + _subscribeLength.toString());
           break;
         case 2:
           _boxPrice = 25000;
-          _daysCount = 5;
-          _updateTotalValue(_boxPrice, _boxes, _daysCount);
+          _subscribeLength = days;
+          _updateTotalValue(_boxPrice, _boxes, _subscribeLength);
           debugPrint('PER DAY: ' + _boxPrice.toString());
-          debugPrint('DAYS: ' + _daysCount.toString());
+          debugPrint('DAYS: ' + _subscribeLength.toString());
           break;
         case 3:
+          _subscribeLength = days;
+          if (days >= 2 && days <=5) {
+            _boxPrice = 25000;
+            _updateTotalValue(_boxPrice, _boxes, _subscribeLength);
+            debugPrint('PER DAY: ' + _boxPrice.toString());
+            debugPrint('DAYS: ' + _subscribeLength.toString());
+          } else if (days > 5 && days <= 10) {
+            _boxPrice = 24250;
+            _updateTotalValue(_boxPrice, _boxes, _subscribeLength);
+            debugPrint('PER DAY: ' + _boxPrice.toString());
+            debugPrint('DAYS: ' + _subscribeLength.toString());
+          } else {
+            _boxPrice = 22500;
+            _updateTotalValue(_boxPrice, _boxes, _subscribeLength);
+            debugPrint('PER DAY: ' + _boxPrice.toString());
+            debugPrint('DAYS: ' + _subscribeLength.toString());
+          }
           break;
       }
     });
@@ -405,7 +426,7 @@ class _MyHomePageState extends State<MyHomePage> {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(5.0))),
               // TODO: MAKE CALENDAR ABLE TO PICK DAYS AND UPDATE _daysCount
-              child: new Calendar(daysSelected: _daysCount))),
+              child: new Calendar(daysSelected: _subscribeLength))),
       new Divider(height: 12.0, color: Colors.transparent),
       proTips()
     ]);
@@ -470,7 +491,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               new Text(UiData.subscriptionLengthLabel,
                   style: new TextStyle(fontSize: 16.0)),
-              new Text('$_daysCount hari', style: new TextStyle(fontSize: 16.0))
+              new Text('$_subscribeLength hari', style: new TextStyle(fontSize: 16.0))
             ],
           ),
         ),

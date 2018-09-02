@@ -4,6 +4,7 @@ class UiData {
   //strings
   static const String numberOfBoxPerDayLabel = 'Jumlah box per hari';
   static const String subscribeLengthLabel = 'Lama Langganan';
+  static const String subscribeLengthDialogLabel = 'Pilih Periode Langganan';
   static const String proTipsLabel = 'Pro Tips';
   static const String proTipsContent = 'Atur jadwal langganan dengan menekan tanggal pada kalender. Selesaikan transaksi sebelum pukul 19:00 untuk mulai pengiriman besok.';
   static const String subscriptionDetailLabel = 'Rincian Langganan';

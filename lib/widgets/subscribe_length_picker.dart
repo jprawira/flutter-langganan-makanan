@@ -1,5 +1,8 @@
+import 'package:tuple/tuple.dart';
+
 import 'package:flutter/material.dart';
 import 'package:langganan_makanan/ui_data.dart';
+import 'subscribe_length_dialog.dart';
 
 class LengthPickerModel {
   bool isSelected;
@@ -11,7 +14,7 @@ class LengthPickerModel {
 
 class SubscribeLengthPicker extends StatefulWidget {
   final int pickerValue;
-  final ValueChanged<int> onChanged;
+  final ValueChanged<Tuple2<int, int>> onChanged;
 
   SubscribeLengthPicker(
       {Key key, this.pickerValue: 2, @required this.onChanged})
@@ -24,12 +27,25 @@ class SubscribeLengthPicker extends StatefulWidget {
 class SubscribeLengthPickerState extends State<SubscribeLengthPicker> {
   List<LengthPickerModel> data = new List<LengthPickerModel>();
 
-  void toggleValue(int index) {
+  void toggleValue(int index, [int days]) {
     setState(() {
       data.forEach((element) => element.isSelected = false);
       data[index].isSelected = true;
     });
-    widget.onChanged(index);
+    switch (index) {
+      case 0:
+        widget.onChanged(new Tuple2<int, int>(index, 20));
+        break;
+      case 1:
+        widget.onChanged(new Tuple2<int, int>(index, 10));
+        break;
+      case 2:
+        widget.onChanged(new Tuple2<int, int>(index, 5));
+        break;
+      case 3:
+        widget.onChanged(new Tuple2<int, int>(index, days));
+        break;
+    }
   }
 
   @override
@@ -61,7 +77,11 @@ class SubscribeLengthPickerState extends State<SubscribeLengthPicker> {
                   color: Colors.transparent,
                   child: InkWell(
                       onTap: () {
-                        toggleValue(index);
+                        if (index != 3) {
+                          toggleValue(index);
+                        } else {
+                          showDialog(context: context, child: new SimpleDialog(children: <Widget>[new SubscribeLengthDialog()]));
+                        }
                       },
                       child: new LengthPickerItem(data[index]))));
         });
@@ -79,19 +99,19 @@ class LengthPickerItem extends StatelessWidget {
             color: _item.isSelected ? UiData.mainOrange : Colors.white,
             border: new Border.all(width: 2.0, color: UiData.mainOrange),
             borderRadius: const BorderRadius.all(const Radius.circular(5.0))),
-        child: Center(
-          child: Column(
+        child: new Center(
+          child: new Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               new Text(
                 _item.text,
-                style: TextStyle(
+                style: new TextStyle(
                     color: _item.isSelected ? Colors.white : Colors.grey[700],
                     fontWeight: FontWeight.bold,
                     fontSize: 16.0),
               ),
               new Text(_item.description,
-                  style: TextStyle(
+                  style: new TextStyle(
                       color: _item.isSelected ? Colors.white : Colors.grey,
                       fontSize: 14.0))
             ],
